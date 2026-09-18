@@ -6,8 +6,13 @@
 <meta name="theme-color" content="#FDF4F7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#231620" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="So Tien Hong">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%B8%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <style>
   :root{color-scheme:light dark}
   html,body{margin:0}
@@ -192,6 +197,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .field .cur{color:var(--ink-faint);font-size:13px}
 
 .rows{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+@media(min-width:860px){
+  .rows.two{display:grid;grid-template-columns:1fr 1fr;gap:7px 12px;align-items:start}
+}
 .row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;
   border:1px solid var(--line);border-radius:11px;padding:8px 9px 8px 11px;background:var(--surface)}
 .row.done{background:var(--rose-wash);border-color:transparent}
@@ -353,6 +361,15 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
       <path d="M24 6 q3 13 18 18 q-15 5-18 18 q-3-13-18-18 Q21 19 24 6z" fill="var(--rose-wash)" stroke="var(--rose)" stroke-width="2.4" stroke-linejoin="round"/>
       <circle cx="40" cy="11" r="2.4" fill="var(--rose)" opacity=".7"/>
       <circle cx="9" cy="38" r="1.8" fill="var(--rose)" opacity=".6"/>
+    </symbol>
+    <symbol id="st-cart" viewBox="0 0 48 48">
+      <path d="M6 9 h5 l5 22 h20" fill="none" stroke="var(--rose-deep)" stroke-width="2.4"
+        stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 14 h28 l-4 13 H16z" fill="var(--rose-wash)" stroke="var(--rose-deep)"
+        stroke-width="2.4" stroke-linejoin="round"/>
+      <circle cx="20" cy="38" r="3" fill="var(--rose-wash)" stroke="var(--rose-deep)" stroke-width="2.2"/>
+      <circle cx="33" cy="38" r="3" fill="var(--rose-wash)" stroke="var(--rose-deep)" stroke-width="2.2"/>
+      <path d="M27 17 v7 M23.5 20.5 h7" stroke="var(--rose)" stroke-width="2" stroke-linecap="round"/>
     </symbol>
     <symbol id="st-note" viewBox="0 0 48 48">
       <rect x="5" y="13" width="38" height="22" rx="5" fill="var(--amber-wash)" stroke="var(--amber)" stroke-width="2.4"/>
@@ -535,18 +552,18 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
       </div>
     </details>
 
-    <details class="panel span2" data-ui="recv">
+    <details class="panel span2" data-ui="buy">
       <summary>
-        <span class="ttl"><svg class="stk"><use href="#st-note"></use></svg>
-          <span><span class="step">Theo dõi</span><h2>Khoản cần thu</h2></span></span>
-        <span class="tot" id="totRecv">0 đ</span>
+        <span class="ttl"><svg class="stk"><use href="#st-cart"></use></svg>
+          <span><span class="step">Sắp tới</span><h2>Cần mua tháng sau</h2></span></span>
+        <span class="tot" id="totBuy">0 đ</span>
         <span class="chev" aria-hidden="true">›</span>
       </summary>
       <div class="pbody">
-        <button class="add" id="addRecv" type="button" style="margin-top:0">+ Khoản cần thu</button>
-        <p class="hint">Ai nợ mình, thu cho việc gì. Chưa thu thì tự hiện lại ở các tháng sau; bấm <b>Đã thu</b> là cộng vào tiền đang có của tháng đó.</p>
-        <ul class="rows" id="listRecv"></ul>
-        <p class="empty" id="emptyRecv" hidden>Chưa có khoản nào cần thu.</p>
+        <button class="add" id="addBuy" type="button" style="margin-top:0">+ Thứ cần mua</button>
+        <p class="hint">Ghi trước những thứ tháng sau phải mua để biết sẽ cần bao nhiêu. Chưa mua thì tự hiện lại ở các tháng sau; mua rồi bấm <b>Đã mua</b> là được đóng dấu mèo và đẩy xuống cuối.</p>
+        <ul class="rows two" id="listBuy"></ul>
+        <p class="empty" id="emptyBuy" hidden>Chưa ghi thứ nào cần mua.</p>
       </div>
     </details>
 
@@ -587,6 +604,21 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
         <ul class="rows" id="listFixed"></ul>
         <p class="empty" id="emptyFixed" hidden>Chưa có khoản cố định nào.</p>
 
+      </div>
+    </details>
+
+    <details class="panel span2" data-ui="recv">
+      <summary>
+        <span class="ttl"><svg class="stk"><use href="#st-note"></use></svg>
+          <span><span class="step">Theo dõi</span><h2>Khoản cần thu</h2></span></span>
+        <span class="tot" id="totRecv">0 đ</span>
+        <span class="chev" aria-hidden="true">›</span>
+      </summary>
+      <div class="pbody">
+        <button class="add" id="addRecv" type="button" style="margin-top:0">+ Khoản cần thu</button>
+        <p class="hint">Ai nợ mình, thu cho việc gì. Chưa thu thì tự hiện lại ở các tháng sau; bấm <b>Đã thu</b> là cộng vào tiền đang có của tháng đó.</p>
+        <ul class="rows two" id="listRecv"></ul>
+        <p class="empty" id="emptyRecv" hidden>Chưa có khoản nào cần thu.</p>
       </div>
     </details>
   </div>
@@ -900,7 +932,9 @@ function boot(){
   var data = emptyData();
   var cats = [];
   var recv = [];
+  var buys = [];
   var unsubRecv = null;
+  var unsubBuys = null;
   var sampleCache = null;
   var saveTimer = null;
   var applyingRemote = false;
@@ -1019,6 +1053,54 @@ function boot(){
       } else if(r.month <= k) wait += r.amount;
     });
     return { got: got, wait: wait, gotAfter: gotAfter };
+  }
+
+  /* ---------------- thứ cần mua tháng sau ---------------- */
+  function normBuy(x){
+    return { id: x.id || uid(), name: x.name || "", note: x.note || "",
+             amount: Number(x.amount) || 0, month: x.month || key,
+             done: !!x.done, doneMonth: x.doneMonth || "", doneAt: Number(x.doneAt) || 0 };
+  }
+  function loadBuys(){
+    var local = null;
+    try { local = JSON.parse(localStorage.getItem("sotay:buys") || "null"); } catch(e){}
+    buys = Array.isArray(local) ? local.map(normBuy) : [];
+    if(db){
+      if(unsubBuys){ try { unsubBuys(); } catch(e){} }
+      unsubBuys = db.doc("settings/buys").onSnapshot(function(s){
+        if(buysTimer) return;
+        if(s.exists && Array.isArray(s.data().list)){
+          var incoming = s.data().list.map(normBuy);
+          if(JSON.stringify(incoming) === JSON.stringify(buys)) return;
+          buys = incoming;
+          try { localStorage.setItem("sotay:buys", JSON.stringify(buys)); } catch(e){}
+          render();
+        }
+      }, function(){});
+    }
+  }
+  var buysTimer = null;
+  function saveBuys(){
+    try { localStorage.setItem("sotay:buys", JSON.stringify(buys)); } catch(e){}
+    if(!db) return;
+    if(buysTimer) clearTimeout(buysTimer);
+    buysTimer = setTimeout(function(){
+      buysTimer = null;
+      db.doc("settings/buys").set({ list: JSON.parse(JSON.stringify(buys)) }).catch(function(){});
+    }, 800);
+  }
+  function visibleBuys(k){
+    return buys.filter(function(b){
+      return b.done ? b.doneMonth === k : b.month <= k;
+    }).sort(function(a, b){ return (a.done ? 1 : 0) - (b.done ? 1 : 0); });
+  }
+  function buySums(k){
+    var wait = 0, bought = 0;
+    buys.forEach(function(b){
+      if(b.done){ if(b.doneMonth === k) bought += b.amount; }
+      else if(b.month <= k) wait += b.amount;
+    });
+    return { wait: wait, bought: bought };
   }
 
   function renderCats(){
@@ -1202,6 +1284,50 @@ function boot(){
       data.withdrawals = data.withdrawals.filter(function(x){ return x !== it; });
       queueSave(); render();
     }, "Xoá khoản rút"));
+    return li;
+  }
+
+  function buyRow(it){
+    var li = document.createElement("li");
+    li.className = "row" + (it.done ? " done" : "");
+    var txt = document.createElement("div");
+    txt.className = "txt";
+    txt.appendChild(textInput("name", it.name, "Cần mua gì?", function(v){ it.name = v; saveBuys(); }));
+    txt.appendChild(textInput("note", it.note, "Ghi chú", function(v){ it.note = v; saveBuys(); }));
+    li.appendChild(txt);
+
+    var ctl = document.createElement("div");
+    ctl.className = "ctl";
+    if(it.done){
+      var st = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      st.setAttribute("class", "stamp");
+      st.setAttribute("aria-hidden", "true");
+      var u = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      u.setAttribute("href", "#st-stamp");
+      st.appendChild(u);
+      ctl.appendChild(st);
+    }
+    if(!it.done && it.month !== key){
+      ctl.appendChild(tagChip("từ " + monthLabel(it.month).replace(" · ", "/"), "Ghi từ tháng trước, chưa mua"));
+    }
+    ctl.appendChild(amtInput(it.amount, function(v){ it.amount = v; saveBuys(); paint(); }));
+
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip " + (it.done ? "on-paid" : "on-todo");
+    b.textContent = it.done ? "Đã mua" : "Chưa mua";
+    b.addEventListener("click", function(){
+      if(it.done){ it.done = false; it.doneMonth = ""; it.doneAt = 0; }
+      else { it.done = true; it.doneMonth = key; it.doneAt = Date.now(); }
+      saveBuys(); render();
+    });
+    ctl.appendChild(b);
+    li.appendChild(ctl);
+
+    li.appendChild(killBtn(function(){
+      buys = buys.filter(function(x){ return x !== it; });
+      saveBuys(); render();
+    }, "Xoá thứ cần mua"));
     return li;
   }
 
@@ -1619,6 +1745,9 @@ function boot(){
     $("sRecvBox").hidden = !t.recvWait;
     $("sRecv").textContent = VND(t.recvWait);
     $("totRecv").textContent = t.recvWait ? "chờ " + VNDc(t.recvWait) : VNDc(t.recvGot);
+    var bs = buySums(key);
+    $("totBuy").textContent = bs.wait ? "dự tính " + VNDc(bs.wait)
+                                      : (bs.bought ? "đã mua " + VNDc(bs.bought) : "0 đ");
     $("sPaid").textContent = VND(t.paid);
     $("sTodo").textContent = VND(t.todo);
     $("sNow").textContent = VND(t.base);
@@ -1651,6 +1780,7 @@ function boot(){
     renderList($("listSave"), $("emptySave"), data.savings, saveRow);
     renderList($("listDraw"), $("emptyDraw"), data.withdrawals, drawRow);
     renderList($("listRecv"), $("emptyRecv"), visibleRecv(key), recvRow);
+    renderList($("listBuy"), $("emptyBuy"), visibleBuys(key), buyRow);
     renderList($("listFixed"), $("emptyFixed"), listOf("fixed"), expenseRow);
     renderList($("listExtra"), $("emptyExtra"), listOf("extra"), expenseRow);
     if(query){
@@ -1796,6 +1926,11 @@ function boot(){
     data.incomes.push({ id: uid(), name: "", amount: 0, at: Date.now() });
     queueSave(); render(); focusLast("listIncome");
   });
+  $("addBuy").addEventListener("click", function(){
+    buys.unshift({ id: uid(), name: "", note: "", amount: 0, month: key,
+                   done: false, doneMonth: "", doneAt: 0 });
+    saveBuys(); render(); focusLast2("listBuy");
+  });
   $("addRecv").addEventListener("click", function(){
     recv.unshift({ id: uid(), name: "", who: "", amount: 0, month: key,
                    done: false, doneMonth: "", doneAt: 0 });
@@ -1933,13 +2068,13 @@ function boot(){
   }
 
   function collectAll(){
-    if(!db) return Promise.resolve({ months: localMonths(), cats: cats, recv: recv });
+    if(!db) return Promise.resolve({ months: localMonths(), cats: cats, recv: recv, buys: buys });
     return db.collection("months").get().then(function(snap){
       var months = localMonths();
       snap.docs.forEach(function(d){ months[d.id] = d.data(); });
-      return { months: months, cats: cats, recv: recv };
+      return { months: months, cats: cats, recv: recv, buys: buys };
     }).catch(function(){
-      return { months: localMonths(), cats: cats, recv: recv };
+      return { months: localMonths(), cats: cats, recv: recv, buys: buys };
     });
   }
 
@@ -1993,6 +2128,11 @@ function boot(){
           lsSetJson("sotay:recv", recv);
           if(db) jobs.push(db.doc("settings/recv").set({ list: JSON.parse(JSON.stringify(recv)) }));
         }
+        if(Array.isArray(all.buys)){
+          buys = all.buys.map(normBuy);
+          lsSetJson("sotay:buys", buys);
+          if(db) jobs.push(db.doc("settings/buys").set({ list: JSON.parse(JSON.stringify(buys)) }));
+        }
         cfgMsg("Đang nạp " + n + " tháng…");
         Promise.all(jobs).then(function(){
           cfgMsg("Đã nạp xong " + n + " tháng. Đang mở lại sổ…");
@@ -2029,6 +2169,7 @@ function boot(){
   db = window.__db || null;
   loadCats();
   loadRecv();
+  loadBuys();
   loadMonth(key);
   if(!db) setStatus("Lưu trong máy này");
   wireSettings();
