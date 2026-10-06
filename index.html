@@ -200,6 +200,14 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media(min-width:860px){
   .rows.two{display:grid;grid-template-columns:1fr 1fr;gap:7px 12px;align-items:start}
 }
+/* dòng trong cột hẹp: dồn gọn, các nút xuống hàng dưới */
+.rows.two .row{grid-template-columns:1fr auto;row-gap:5px}
+.rows.two .row .ctl{grid-column:1/-1;justify-content:flex-end;flex-wrap:wrap;gap:5px}
+.rows.two .row .kill{grid-row:1;grid-column:2}
+.rows.two .row .amt{width:auto;min-width:74px}
+.rows.two .row .chip{padding:2px 8px;font-size:11px}
+.rows.two .row select.cat{padding:2px 6px;font-size:11px;max-width:104px}
+.rows.two .row .stamp{width:30px;height:30px}
 .row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;
   border:1px solid var(--line);border-radius:11px;padding:8px 9px 8px 11px;background:var(--surface)}
 .row.done{background:var(--rose-wash);border-color:transparent}
@@ -414,10 +422,11 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
     </div>
 
     <p class="pinerr" id="pinerr" hidden>Sai mã rồi, thử lại nhé.</p>
+    <p class="gnote" id="buildTag" style="text-align:center;margin-top:14px"></p>
 
     <details class="gsetup" id="gSetup">
       <summary>Cài đặt đồng bộ</summary>
-      <p class="gnote">Dán đoạn cấu hình Firebase của bạn vào đây để sổ lưu online và mở được ở mọi máy. Bỏ trống thì sổ chỉ lưu trong máy này.</p>
+      <p class="gnote">Sổ đã có sẵn cấu hình Firebase, mở ở máy nào cũng tự nối. Ô này chỉ dùng khi bạn muốn đổi sang dự án khác.</p>
       <textarea id="fbCfg" rows="7" spellcheck="false" placeholder='{ "apiKey": "...", "authDomain": "...", "projectId": "...", "appId": "..." }'></textarea>
       <div class="growbtns">
         <button class="add" id="fbSave" type="button">Lưu & nối</button>
@@ -552,7 +561,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
       </div>
     </details>
 
-    <details class="panel span2" data-ui="buy">
+    <details class="panel" data-ui="buy">
       <summary>
         <span class="ttl"><svg class="stk"><use href="#st-cart"></use></svg>
           <span><span class="step">Sắp tới</span><h2>Cần mua tháng sau</h2></span></span>
@@ -564,6 +573,21 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
         <p class="hint">Ghi trước những thứ tháng sau phải mua để biết sẽ cần bao nhiêu. Chưa mua thì tự hiện lại ở các tháng sau; mua rồi bấm <b>Đã mua</b> là được đóng dấu mèo và đẩy xuống cuối.</p>
         <ul class="rows two" id="listBuy"></ul>
         <p class="empty" id="emptyBuy" hidden>Chưa ghi thứ nào cần mua.</p>
+      </div>
+    </details>
+
+    <details class="panel" data-ui="recv">
+      <summary>
+        <span class="ttl"><svg class="stk"><use href="#st-note"></use></svg>
+          <span><span class="step">Theo dõi</span><h2>Khoản cần thu</h2></span></span>
+        <span class="tot" id="totRecv">0 đ</span>
+        <span class="chev" aria-hidden="true">›</span>
+      </summary>
+      <div class="pbody">
+        <button class="add" id="addRecv" type="button" style="margin-top:0">+ Khoản cần thu</button>
+        <p class="hint">Ai nợ mình, thu cho việc gì. Chưa thu thì tự hiện lại ở các tháng sau; bấm <b>Đã thu</b> là cộng vào tiền đang có của tháng đó.</p>
+        <ul class="rows two" id="listRecv"></ul>
+        <p class="empty" id="emptyRecv" hidden>Chưa có khoản nào cần thu.</p>
       </div>
     </details>
 
@@ -594,33 +618,19 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
           </form>
         </div>
         <p class="hint" id="qinfo" hidden></p>
-        <p class="hint">Khoản mới hiện lên đầu. Bấm <b>Chưa chi → Đã chi</b> khi trả xong — khoản đã chi được đóng dấu mèo và đẩy xuống cuối.</p>
+        <p class="hint">Chưa chi nằm trên, đã chi đóng dấu mèo và xuống cuối. Nhãn <b>Cố định</b> hay <b>Phát sinh</b> ở ngay trên mỗi dòng.</p>
 
-        <div class="groupline">Phát sinh</div>
-        <ul class="rows" id="listExtra"></ul>
-        <p class="empty" id="emptyExtra" hidden>Chưa có khoản phát sinh nào.</p>
+        <div class="groupline" id="glTodo">Chưa chi</div>
+        <ul class="rows two" id="listTodo"></ul>
+        <p class="empty" id="emptyTodo" hidden>Không còn khoản nào chưa chi.</p>
 
-        <div class="groupline">Cố định hằng tháng</div>
-        <ul class="rows" id="listFixed"></ul>
-        <p class="empty" id="emptyFixed" hidden>Chưa có khoản cố định nào.</p>
+        <div class="groupline" id="glPaid">Đã chi</div>
+        <ul class="rows two" id="listPaid"></ul>
+        <p class="empty" id="emptyPaid" hidden>Chưa có khoản nào được đánh dấu đã chi.</p>
 
       </div>
     </details>
 
-    <details class="panel span2" data-ui="recv">
-      <summary>
-        <span class="ttl"><svg class="stk"><use href="#st-note"></use></svg>
-          <span><span class="step">Theo dõi</span><h2>Khoản cần thu</h2></span></span>
-        <span class="tot" id="totRecv">0 đ</span>
-        <span class="chev" aria-hidden="true">›</span>
-      </summary>
-      <div class="pbody">
-        <button class="add" id="addRecv" type="button" style="margin-top:0">+ Khoản cần thu</button>
-        <p class="hint">Ai nợ mình, thu cho việc gì. Chưa thu thì tự hiện lại ở các tháng sau; bấm <b>Đã thu</b> là cộng vào tiền đang có của tháng đó.</p>
-        <ul class="rows two" id="listRecv"></ul>
-        <p class="empty" id="emptyRecv" hidden>Chưa có khoản nào cần thu.</p>
-      </div>
-    </details>
   </div>
 
   <details class="panel report" data-ui="rep">
@@ -661,6 +671,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
         <div><span>Thực tế đã đếm</span><b id="rActual">—</b></div>
         <div id="rNewIncBox" hidden><span>Thu thêm sau khi đếm</span><b id="rNewInc">0</b></div>
         <div id="rNewPaidBox" hidden><span>Đã chi sau khi đếm</span><b id="rNewPaid">0</b></div>
+        <div id="rNewSaveBox" hidden><span>Cất sau khi đếm</span><b id="rNewSave">0</b></div>
         <div id="rWaitBox" hidden><span>Còn chờ thu về</span><b id="rWait">0</b></div>
         <div><span>Quỹ cất còn lại</span><b id="rFund">0</b></div>
       </div>
@@ -721,6 +732,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
 (function(){
   "use strict";
 
+  var BUILD = "b6 · index";
   var gate = document.getElementById("gate");
   var app = document.getElementById("app");
   var booted = false;
@@ -731,9 +743,25 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
   function lsDel(k){ try { localStorage.removeItem(k); } catch(e){} }
   function getPin(){ return lsGet(PIN_KEY) || "0000"; }
 
-  /* ---------- Firebase (tuỳ chọn) ---------- */
+  /* ---------- Firebase ----------
+     Cấu hình nằm sẵn ở đây nên mở ở máy nào cũng tự nối, không phải dán lại.
+     Đoạn này công khai được: dữ liệu được bảo vệ bằng luật Firestore + đăng nhập. */
+  var DEFAULT_FB = {
+    apiKey: "AIzaSyCGbIMh-rVeZ8WaGS8EtBXYSh-91LmiORw",
+    authDomain: "so-tien-hong.firebaseapp.com",
+    projectId: "so-tien-hong",
+    storageBucket: "so-tien-hong.firebasestorage.app",
+    messagingSenderId: "168948263132",
+    appId: "1:168948263132:web:004b1dd7ada7769c566c19"
+  };
   var fbCfg = null, fbOn = false;
-  try { fbCfg = JSON.parse(lsGet(FB_KEY) || "null"); } catch(e){ fbCfg = null; }
+  var fbStored = lsGet(FB_KEY);
+  if(fbStored === "off"){
+    fbCfg = null;
+  } else {
+    try { fbCfg = JSON.parse(fbStored || "null"); } catch(e){ fbCfg = null; }
+    if(!fbCfg) fbCfg = DEFAULT_FB;
+  }
   if(fbCfg && window.firebase && fbCfg.apiKey && fbCfg.projectId){
     try {
       firebase.initializeApp(fbCfg);
@@ -773,8 +801,9 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
     var box = document.getElementById("fbCfg");
     var st = document.getElementById("fbState");
     if(fbCfg) box.value = JSON.stringify(fbCfg, null, 1);
-    st.textContent = fbOn ? "Đang nối với dự án " + fbCfg.projectId + "."
-                          : (fbCfg ? "Có cấu hình nhưng chưa nối được — kiểm tra lại." : "Chưa nối, sổ đang lưu trong máy này.");
+    st.textContent = fbOn ? "Đang nối với dự án " + fbCfg.projectId + ". Máy nào mở link cũng tự nối như vậy."
+                          : (fbCfg ? "Có cấu hình nhưng chưa nối được — kiểm tra lại."
+                                   : "Đang tắt đồng bộ, sổ chỉ lưu trong máy này. Bấm Lưu & nối để bật lại.");
     document.getElementById("fbSave").addEventListener("click", function(){
       var raw = box.value.trim();
       if(!raw){ gErr("Chưa có cấu hình nào để lưu."); return; }
@@ -791,9 +820,20 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
       location.reload();
     });
     document.getElementById("fbClear").addEventListener("click", function(){
-      lsDel(FB_KEY);
+      lsSet(FB_KEY, "off");
       location.reload();
     });
+  })();
+
+  (function(){
+    var tag = document.getElementById("buildTag");
+    if(fbOn){ tag.textContent = "Bản " + BUILD + " · đã nối Firebase"; return; }
+    if(fbCfg && !window.firebase){
+      tag.textContent = "Bản " + BUILD + " · KHÔNG tải được Firebase, đang chạy ngoại tuyến";
+      tag.style.color = "var(--rose-deep)";
+    } else {
+      tag.textContent = "Bản " + BUILD + " · chưa nối đồng bộ";
+    }
   })();
 
   if(fbOn){
@@ -913,7 +953,8 @@ function boot(){
         return { id: x.id || uid(), name: x.name || "", amount: Number(x.amount) || 0, at: Number(x.at) || 0 };
       }) : [],
       savings: Array.isArray(d.savings) ? d.savings.map(function(x){
-        return { id: x.id || uid(), name: x.name || "", note: x.note || "", amount: Number(x.amount) || 0 };
+        return { id: x.id || uid(), name: x.name || "", note: x.note || "",
+                 amount: Number(x.amount) || 0, at: Number(x.at) || 0 };
       }) : [],
       withdrawals: Array.isArray(d.withdrawals) ? d.withdrawals.map(function(x){
         return { id: x.id || uid(), name: x.name || "", amount: Number(x.amount) || 0, at: Number(x.at) || 0 };
@@ -1142,17 +1183,19 @@ function boot(){
     var paid = 0, todo = 0;
     data.expenses.forEach(function(e){ if(e.paid) paid += e.amount; else todo += e.amount; });
     var now = totalIn - saved - paid;
-    var newInc = 0, newPaid = 0;
+    var newInc = 0, newPaid = 0, newSave = 0;
     if(data.actual !== null){
       data.incomes.forEach(function(x){ if((x.at || 0) > data.actualAt) newInc += x.amount; });
       data.withdrawals.forEach(function(x){ if((x.at || 0) > data.actualAt) newInc += x.amount; });
       data.expenses.forEach(function(x){ if(x.paid && (x.paidAt || 0) > data.actualAt) newPaid += x.amount; });
+      data.savings.forEach(function(x){ if((x.at || 0) > data.actualAt) newSave += x.amount; });
       newInc += rs.gotAfter;
     }
-    var base = data.actual === null ? now : data.actual + newInc - newPaid;
+    var base = data.actual === null ? now : data.actual + newInc - newPaid - newSave;
     return { totalIn: totalIn, extraIn: inc, drawn: drawn, saved: saved, paid: paid, todo: todo,
              recvGot: rs.got, recvWait: rs.wait,
-             now: now, base: base, newInc: newInc, newPaid: newPaid, fromActual: data.actual !== null,
+             now: now, base: base, newInc: newInc, newPaid: newPaid, newSave: newSave,
+             fromActual: data.actual !== null,
              left: base - todo, fund: data.openingSaved + saved - drawn };
   }
 
@@ -1247,6 +1290,10 @@ function boot(){
   function listOf(kind){
     return data.expenses.filter(function(e){ return e.kind === kind && matches(e); })
       .sort(function(a, b){ return (a.paid ? 1 : 0) - (b.paid ? 1 : 0); });
+  }
+  /* một danh sách chung: cố định và phát sinh đứng cùng nhau, chưa chi luôn ở trên */
+  function listPaidState(paid){
+    return data.expenses.filter(function(e){ return !!e.paid === paid && matches(e); });
   }
 
   function incomeRow(it){
@@ -1377,7 +1424,11 @@ function boot(){
     txt.appendChild(textInput("name", it.name, "Cất vào đâu?", function(v){ it.name = v; queueSave(); }));
     txt.appendChild(textInput("note", it.note, "Để làm gì?", function(v){ it.note = v; queueSave(); }));
     li.appendChild(txt);
-    li.appendChild(amtInput(it.amount, function(v){ it.amount = v; queueSave(); paint(); }));
+    var ctl = document.createElement("div");
+    ctl.className = "ctl";
+    ctl.appendChild(amtInput(it.amount, function(v){ it.amount = v; queueSave(); paint(); }));
+    if(afterCount(it)) ctl.appendChild(tagChip("trừ sau khi đếm", "Đã trừ khỏi số tiền thực tế"));
+    li.appendChild(ctl);
     li.appendChild(killBtn(function(){
       data.savings = data.savings.filter(function(x){ return x !== it; });
       queueSave(); render();
@@ -1486,6 +1537,8 @@ function boot(){
     $("rNewInc").textContent = VNDc(t.newInc);
     $("rNewPaidBox").hidden = !t.newPaid;
     $("rNewPaid").textContent = VNDc(t.newPaid);
+    $("rNewSaveBox").hidden = !t.newSave;
+    $("rNewSave").textContent = VNDc(t.newSave);
     $("rWaitBox").hidden = !t.recvWait;
     $("rWait").textContent = VNDc(t.recvWait);
     $("rFund").textContent = VNDc(t.fund);
@@ -1729,7 +1782,8 @@ function boot(){
       sub = "từ số đếm " + VND(data.actual);
       if(t.newInc) sub += " + " + VND(t.newInc) + " thu thêm";
       if(t.newPaid) sub += " − " + VND(t.newPaid) + " đã chi";
-      sub += (t.newInc || t.newPaid) ? " sau khi đếm" : ", chưa có gì thay đổi";
+      if(t.newSave) sub += " − " + VND(t.newSave) + " cất đi";
+      sub += (t.newInc || t.newPaid || t.newSave) ? " sau khi đếm" : ", chưa có gì thay đổi";
     } else {
       sub = "tiền vào trừ đi phần đã cất và đã chi";
     }
@@ -1781,14 +1835,17 @@ function boot(){
     renderList($("listDraw"), $("emptyDraw"), data.withdrawals, drawRow);
     renderList($("listRecv"), $("emptyRecv"), visibleRecv(key), recvRow);
     renderList($("listBuy"), $("emptyBuy"), visibleBuys(key), buyRow);
-    renderList($("listFixed"), $("emptyFixed"), listOf("fixed"), expenseRow);
-    renderList($("listExtra"), $("emptyExtra"), listOf("extra"), expenseRow);
+    var todoRows = listPaidState(false), paidRows = listPaidState(true);
+    renderList($("listTodo"), $("emptyTodo"), todoRows, expenseRow);
+    renderList($("listPaid"), $("emptyPaid"), paidRows, expenseRow);
+    $("glTodo").textContent = todoRows.length ? "Chưa chi (" + todoRows.length + ")" : "Chưa chi";
+    $("glPaid").textContent = paidRows.length ? "Đã chi (" + paidRows.length + ")" : "Đã chi";
     if(query){
-      var n = listOf("fixed").length + listOf("extra").length;
+      var n = todoRows.length + paidRows.length;
       $("qinfo").hidden = false;
       $("qinfo").textContent = n ? "Tìm thấy " + n + " khoản." : "Không có khoản nào khớp.";
-      $("emptyFixed").hidden = true;
-      $("emptyExtra").hidden = true;
+      $("emptyTodo").hidden = true;
+      $("emptyPaid").hidden = true;
     } else {
       $("qinfo").hidden = true;
     }
@@ -1814,12 +1871,13 @@ function boot(){
     var inc = sum(d.incomes), saved = sum(d.savings), drawn = sum(d.withdrawals);
     var spent = sum(d.expenses);
     var todo = d.expenses.reduce(function(a, b){ return a + (b.paid ? 0 : b.amount); }, 0);
-    var newInc = 0, newPaid = 0;
+    var newInc = 0, newPaid = 0, newSave = 0;
     d.incomes.forEach(function(x){ if((x.at || 0) > (d.actualAt || 0)) newInc += x.amount; });
     d.withdrawals.forEach(function(x){ if((x.at || 0) > (d.actualAt || 0)) newInc += x.amount; });
     d.expenses.forEach(function(x){ if(x.paid && (x.paidAt || 0) > (d.actualAt || 0)) newPaid += x.amount; });
+    d.savings.forEach(function(x){ if((x.at || 0) > (d.actualAt || 0)) newSave += x.amount; });
     var cash = d.actual !== null
-      ? d.actual + newInc + rs.gotAfter - newPaid - todo
+      ? d.actual + newInc + rs.gotAfter - newPaid - newSave - todo
       : d.openingCash + d.salary + inc + drawn + rs.got - saved - spent;
     return { cash: cash, fund: d.openingSaved + saved - drawn };
   }
@@ -1941,7 +1999,7 @@ function boot(){
     queueSave(); render(); focusLast("listDraw");
   });
   $("addSave").addEventListener("click", function(){
-    data.savings.push({ id: uid(), name: "", note: "", amount: 0 });
+    data.savings.push({ id: uid(), name: "", note: "", amount: 0, at: Date.now() });
     queueSave(); render(); focusLast("listSave");
   });
   function addExpense(kind, listId){
@@ -1956,8 +2014,8 @@ function boot(){
       try { row.scrollIntoView({ block: "center", behavior: "smooth" }); } catch(e){ row.scrollIntoView(); }
     }
   }
-  $("addFixed").addEventListener("click", function(){ addExpense("fixed", "listFixed"); });
-  $("addExtra").addEventListener("click", function(){ addExpense("extra", "listExtra"); });
+  $("addFixed").addEventListener("click", function(){ addExpense("fixed", "listTodo"); });
+  $("addExtra").addEventListener("click", function(){ addExpense("extra", "listTodo"); });
 
   $("q").addEventListener("input", function(){
     query = norm(this.value.trim());
