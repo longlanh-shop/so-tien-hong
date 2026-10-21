@@ -271,6 +271,21 @@ select.cat{border:1px solid var(--line-strong);background:var(--surface);border-
 .cattag button{border:0;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;
   line-height:1;width:18px;height:18px;border-radius:50%}
 .cattag button:hover{background:var(--rose-wash);color:var(--rose-deep)}
+.cattag .ren{font-size:11px}
+.cattag input{border:0;background:transparent;font-size:12.5px;color:var(--ink);width:7.5em;padding:0}
+.cattag input:focus{outline:none}
+.cattag.old{background:var(--amber-wash);color:var(--amber)}
+
+.remap{margin-top:12px;padding-top:11px;border-top:1px dashed var(--line)}
+.remaprow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 0;
+  border-bottom:1px dashed var(--line);font-size:13px}
+.remaprow .rn{flex:1 1 150px;min-width:0;display:flex;align-items:center;gap:7px}
+.remaprow .rn b{font-weight:500}
+.remaprow .rcount{font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+.remaprow .ramt{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;min-width:92px;text-align:right}
+.remaprow select{border:1px solid var(--line-strong);background:var(--surface);border-radius:999px;
+  padding:3px 8px;font-size:12px;color:var(--ink-soft);max-width:150px}
+.oldtag{background:var(--amber-wash);color:var(--amber);border-radius:999px;padding:1px 7px;font-size:10.5px}
 .catadd{display:flex;gap:6px;align-items:center}
 .catadd input{border:1px dashed var(--line-strong);background:transparent;border-radius:999px;
   padding:4px 12px;font-size:12.5px;width:140px}
@@ -386,7 +401,8 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
 /* ===== biểu đồ tròn ===== */
 .donutwrap{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:flex-start;margin-top:6px}
 .donut{flex:0 0 auto;position:relative;width:196px;height:196px}
-.donut svg{width:100%;height:100%;display:block;transform:rotate(-90deg)}
+.donut svg{width:100%;height:100%;display:block}
+.donut text{font-weight:700;paint-order:stroke;stroke-width:2.2px;stroke-linejoin:round}
 .donut .hole{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
 .donut .hole b{display:block;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;
   color:var(--ink);line-height:1.15}
@@ -409,9 +425,37 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
 .lgdetail b{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
 .lgdetail .un{color:var(--amber)}
 
+.trend{margin-top:22px}
+.trendhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;margin-bottom:10px}
+.trendkey{display:flex;gap:14px;font-size:12px;color:var(--ink-soft)}
+.trendkey i{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px;vertical-align:1px}
+.bars{display:flex;align-items:flex-end;gap:6px;height:132px;padding:14px 2px 0;
+  border-bottom:1px solid var(--line);overflow-x:auto}
+.bcol{flex:1 1 0;min-width:46px;max-width:92px;display:flex;flex-direction:column;align-items:center;gap:0;height:100%;justify-content:flex-end}
+.bpair{display:flex;align-items:flex-end;gap:3px;height:100%;width:100%;justify-content:center}
+.bpair span{width:22px;max-width:40%;border-radius:4px 4px 0 0;min-height:2px;display:block}
+.bmon{font-size:11px;color:var(--ink-faint);margin-top:6px;white-space:nowrap}
+.bnow .bmon{color:var(--rose-deep);font-weight:600}
+.verdict{margin-top:14px;display:flex;flex-direction:column;gap:7px}
+.vline{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink-soft);line-height:1.5}
+.vline i{flex:none;width:7px;height:7px;border-radius:50%;background:var(--rose);margin-top:6px}
+.vline b{color:var(--ink);font-weight:600}
+.vline.warn i{background:var(--amber)}
+.vline.good i{background:var(--sage)}
+
 /* ===== bong bóng góc màn hình ===== */
 .dock{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;flex-direction:column;
   align-items:flex-end;gap:9px}
+.docklist{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.docklist[hidden]{display:none}
+.dockmain{position:relative;width:56px;height:56px;border-radius:50%;border:1px solid var(--line-strong);
+  background:var(--surface);box-shadow:0 6px 20px -5px rgba(112,54,76,.4);cursor:pointer;
+  display:grid;place-items:center;padding:0}
+.dockmain:hover{background:var(--rose-wash);border-color:var(--rose)}
+.dockmain svg{width:38px;height:38px}
+.dockmain .dot{position:absolute;top:3px;right:3px;min-width:18px;height:18px;border-radius:999px;
+  background:var(--rose);color:#fff;font-size:10.5px;display:grid;place-items:center;padding:0 5px;
+  font-variant-numeric:tabular-nums}
 .bub{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line-strong);
   border-radius:999px;padding:5px 13px 5px 5px;box-shadow:0 4px 16px -4px rgba(112,54,76,.32);
   cursor:pointer;color:var(--ink)}
@@ -723,6 +767,11 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
             <input id="catInput" type="text" placeholder="+ mục mới…" maxlength="24" aria-label="Tên mục chi mới">
             <button class="link" type="submit">Thêm mục</button>
           </form>
+          <button class="link" id="remapToggle" type="button">Phân bổ lại</button>
+        </div>
+        <div class="remap" id="remapBox" hidden>
+          <p class="hint" style="margin-top:0">Mỗi dòng là một mục đang được khoản chi sử dụng trong tháng này. Chọn ở ô bên phải để chuyển <b>toàn bộ</b> khoản chi của mục đó sang mục khác. Mục có nhãn <b>cũ</b> là mục đã bị xoá khỏi danh sách nhưng khoản chi vẫn còn giữ tên.</p>
+          <div id="remapList"></div>
         </div>
         <p class="hint" id="qinfo" hidden></p>
         <p class="hint">Bấm ô vuông đầu dòng để đánh dấu đã chi — khoản đó đóng dấu mèo rồi dồn vào nhóm theo mục bên dưới. <b>CĐ</b> là cố định, <b>PS</b> là phát sinh, bấm để đổi. Nút <b>⋯</b> mở ô ghi chú.</p>
@@ -776,6 +825,18 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
           </div>
           <div class="legend" id="catReport"></div>
         </div>
+      </div>
+
+      <div class="trend">
+        <h3 style="font-family:var(--f-body);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin:0 0 4px">Thu chi qua các tháng</h3>
+        <div class="trendhead">
+          <div class="trendkey">
+            <span><i style="background:#2a78d6"></i>Tiền vào</span>
+            <span><i style="background:#eb6834"></i>Tiền chi</span>
+          </div>
+        </div>
+        <div class="bars" id="trendBars"></div>
+        <div class="verdict" id="verdict"></div>
       </div>
 
       <div class="repfoot">
@@ -833,7 +894,12 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
     </div>
   </details>
 
-  <div class="dock" id="dock"></div>
+  <div class="dock">
+    <div class="docklist" id="dockList" hidden></div>
+    <button class="dockmain" id="dockMain" type="button" aria-label="Mở các mục">
+      <svg aria-hidden="true"><use href="#st-cat"></use></svg>
+    </button>
+  </div>
   <div class="scrim" id="scrim" hidden>
     <div class="sheet">
       <div class="sheetbar"><button type="button" id="sheetClose" aria-label="Đóng">×</button></div>
@@ -853,7 +919,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
 (function(){
   "use strict";
 
-  var BUILD = "b7 · app";
+  var BUILD = "b8 · app";
   var gate = document.getElementById("gate");
   var app = document.getElementById("app");
   var booted = false;
@@ -1129,6 +1195,7 @@ function boot(){
       saveTimer = null;
       if(!db){ setStatus("Đã lưu trên máy này"); return; }
       db.doc("months/" + key).set(JSON.parse(JSON.stringify(data))).then(function(){
+        if(monthsAll) monthsAll[key] = normalize(data);
         setStatus("Đã lưu · " + monthLabel(key));
       }).catch(function(){ setStatus("Chưa lưu được lên mạng — đã giữ bản trên máy này"); });
     }, 700);
@@ -1265,6 +1332,36 @@ function boot(){
     return { wait: wait, bought: bought };
   }
 
+  function usedCats(){
+    var m = {};
+    data.expenses.forEach(function(e){
+      var k = e.cat || "";
+      if(!k) return;
+      if(!m[k]) m[k] = { name: k, n: 0, total: 0 };
+      m[k].n++; m[k].total += e.amount;
+    });
+    return Object.keys(m).map(function(k){ return m[k]; })
+            .sort(function(a, b){ return b.total - a.total; });
+  }
+
+  function renameCat(oldName, newName){
+    newName = (newName || "").trim();
+    if(!newName || newName === oldName) return false;
+    var i = cats.indexOf(oldName);
+    if(i !== -1){
+      if(cats.indexOf(newName) !== -1) cats.splice(i, 1);
+      else cats[i] = newName;
+      saveCats();
+    } else if(cats.indexOf(newName) === -1){
+      cats.unshift(newName); saveCats();
+    }
+    var touched = false;
+    data.expenses.forEach(function(e){ if(e.cat === oldName){ e.cat = newName; touched = true; } });
+    if(touched) queueSave();
+    renderCats(); render();
+    return true;
+  }
+
   function renderCats(){
     var box = $("catList");
     box.textContent = "";
@@ -1272,11 +1369,37 @@ function boot(){
     cats.forEach(function(name){
       var tag = document.createElement("span");
       tag.className = "cattag";
-      tag.appendChild(document.createTextNode(name));
+      var txt = document.createElement("span");
+      txt.textContent = name;
+      tag.appendChild(txt);
+
+      var ed = document.createElement("button");
+      ed.type = "button"; ed.className = "ren"; ed.textContent = "✎";
+      ed.title = "Đổi tên mục " + name;
+      ed.setAttribute("aria-label", "Đổi tên mục " + name);
+      ed.addEventListener("click", function(){
+        var inp = document.createElement("input");
+        inp.type = "text"; inp.value = name; inp.maxLength = 24;
+        tag.replaceChild(inp, txt);
+        inp.focus(); inp.select();
+        var done = false;
+        function finish(ok){
+          if(done) return; done = true;
+          if(ok && !renameCat(name, inp.value)) { renderCats(); }
+          else if(!ok) renderCats();
+        }
+        inp.addEventListener("keydown", function(e){
+          if(e.key === "Enter") finish(true);
+          if(e.key === "Escape") finish(false);
+        });
+        inp.addEventListener("blur", function(){ finish(true); });
+      });
+      tag.appendChild(ed);
+
       var b = document.createElement("button");
       b.type = "button"; b.textContent = "×";
-      b.title = "Bỏ mục " + name;
-      b.setAttribute("aria-label", "Bỏ mục " + name);
+      b.title = "Bỏ mục " + name + " khỏi danh sách (khoản chi vẫn giữ nguyên)";
+      b.setAttribute("aria-label", b.title);
       b.addEventListener("click", function(){
         cats = cats.filter(function(c){ return c !== name; });
         saveCats(); renderCats(); render();
@@ -1290,6 +1413,68 @@ function boot(){
       p.textContent = "Chưa có mục nào — thêm mục để phân loại khoản chi.";
       box.appendChild(p);
     }
+    renderRemap();
+  }
+
+  function renderRemap(){
+    var box = $("remapList");
+    if(!box) return;
+    box.textContent = "";
+    var used = usedCats();
+    if(!used.length){
+      var p = document.createElement("p");
+      p.className = "empty";
+      p.textContent = "Chưa có khoản chi nào được gắn mục.";
+      box.appendChild(p);
+      return;
+    }
+    used.forEach(function(u){
+      var row = document.createElement("div");
+      row.className = "remaprow";
+      var rn = document.createElement("div");
+      rn.className = "rn";
+      var nm = document.createElement("b");
+      nm.textContent = u.name;
+      rn.appendChild(nm);
+      if(cats.indexOf(u.name) === -1){
+        var ot = document.createElement("span");
+        ot.className = "oldtag"; ot.textContent = "cũ";
+        ot.title = "Mục này không còn trong danh sách";
+        rn.appendChild(ot);
+      }
+      var cn = document.createElement("span");
+      cn.className = "rcount"; cn.textContent = u.n + " khoản";
+      rn.appendChild(cn);
+      row.appendChild(rn);
+
+      var amt = document.createElement("span");
+      amt.className = "ramt"; amt.textContent = VNDc(u.total);
+      row.appendChild(amt);
+
+      var sel = document.createElement("select");
+      sel.title = "Chuyển toàn bộ khoản chi của mục này sang";
+      var o0 = document.createElement("option");
+      o0.value = ""; o0.textContent = "chuyển sang…";
+      sel.appendChild(o0);
+      cats.forEach(function(c){
+        if(c === u.name) return;
+        var o = document.createElement("option");
+        o.value = c; o.textContent = c;
+        sel.appendChild(o);
+      });
+      var oNone = document.createElement("option");
+      oNone.value = "__none__"; oNone.textContent = "bỏ phân mục";
+      sel.appendChild(oNone);
+      sel.addEventListener("change", function(){
+        var v = sel.value;
+        if(!v) return;
+        var target = v === "__none__" ? "" : v;
+        data.expenses.forEach(function(e){ if(e.cat === u.name) e.cat = target; });
+        queueSave(); renderCats(); render();
+      });
+      row.appendChild(sel);
+      box.appendChild(row);
+    });
   }
 
   /* ---------------- totals ---------------- */
@@ -1731,6 +1916,7 @@ function boot(){
     $("rFund").textContent = VNDc(t.fund);
 
     drawCatReport();
+    drawTrend();
   }
 
   /* ---------------- biểu đồ tròn theo mục ---------------- */
@@ -1773,12 +1959,16 @@ function boot(){
     }
 
     var r = 34, C = 2 * Math.PI * r, gap = groups.length > 1 ? 1.6 : 0, acc = 0;
+    var gArc = document.createElementNS(SVGNS, "g");
+    gArc.setAttribute("transform", "rotate(-90 50 50)");
+    svg.appendChild(gArc);
+
     var ring = document.createElementNS(SVGNS, "circle");
     ring.setAttribute("cx", 50); ring.setAttribute("cy", 50); ring.setAttribute("r", r);
     ring.setAttribute("fill", "none");
     ring.setAttribute("stroke", "var(--surface-2)");
     ring.setAttribute("stroke-width", 15);
-    svg.appendChild(ring);
+    gArc.appendChild(ring);
 
     groups.forEach(function(g, i){
       g.color = catColor(i);
@@ -1800,7 +1990,25 @@ function boot(){
       ttl.textContent = g.name + " — " + g.pct.toFixed(1) + "% · " + VNDc(g.total);
       arc.appendChild(ttl);
       arc.addEventListener("click", function(){ toggleLegend(g.name); });
-      svg.appendChild(arc);
+      gArc.appendChild(arc);
+
+      /* nhãn % đặt giữa lát, chỉ khi lát đủ rộng */
+      if(g.pct >= 6){
+        var mid = (acc + frac * C / 2) / C;           /* 0..1 quanh vòng */
+        var ang = mid * 2 * Math.PI - Math.PI / 2;    /* bắt đầu từ 12 giờ */
+        var tx = 50 + 34 * Math.cos(ang);
+        var ty = 50 + 34 * Math.sin(ang);
+        var lb = document.createElementNS(SVGNS, "text");
+        lb.setAttribute("x", tx.toFixed(2));
+        lb.setAttribute("y", ty.toFixed(2));
+        lb.setAttribute("text-anchor", "middle");
+        lb.setAttribute("dominant-baseline", "central");
+        lb.setAttribute("font-size", "5.4");
+        lb.setAttribute("fill", "#fff");
+        lb.setAttribute("stroke", g.color);
+        lb.textContent = Math.round(g.pct) + "%";
+        svg.appendChild(lb);
+      }
       acc += frac * C;
     });
 
@@ -1839,6 +2047,139 @@ function boot(){
       }
     });
   }
+
+  /* ---------------- thu chi qua các tháng ---------------- */
+  var monthsAll = null;
+
+  function monthSummary(d, k){
+    var rs = recvSums(k, d.actualAt || 0, d.actual !== null);
+    var inn = d.openingCash + d.salary + sum(d.incomes) + sum(d.withdrawals) + rs.got;
+    var spent = sum(d.expenses);
+    return { inn: inn, out: spent, saved: sum(d.savings) };
+  }
+
+  function loadAllMonths(){
+    var out = {};
+    try {
+      for(var i = 0; i < localStorage.length; i++){
+        var kk = localStorage.key(i);
+        if(/^sotay:\d{4}-\d{2}$/.test(kk)){
+          try { out[kk.slice(6)] = normalize(JSON.parse(localStorage.getItem(kk))); } catch(e){}
+        }
+      }
+    } catch(e){}
+    if(!db){ monthsAll = out; drawTrend(); return; }
+    db.collection("months").get().then(function(s){
+      s.docs.forEach(function(doc){ out[doc.id] = normalize(doc.data()); });
+      monthsAll = out; drawTrend();
+    }).catch(function(){ monthsAll = out; drawTrend(); });
+  }
+
+  function trendKeys(){
+    var all = monthsAll ? Object.keys(monthsAll) : [];
+    if(all.indexOf(key) === -1) all.push(key);
+    all.sort();
+    var i = all.indexOf(key);
+    var from = Math.max(0, i - 5);
+    return all.slice(from, i + 1);
+  }
+
+  function statFor(k){
+    if(k === key) {
+      var t = totals();
+      return { inn: t.totalIn, out: t.paid + t.todo, saved: t.saved };
+    }
+    var d = monthsAll && monthsAll[k];
+    return d ? monthSummary(d, k) : null;
+  }
+
+  function drawTrend(){
+    var box = $("trendBars"), vb = $("verdict");
+    if(!box) return;
+    box.textContent = ""; vb.textContent = "";
+    var keys = trendKeys();
+    var stats = keys.map(function(k){ return { k: k, s: statFor(k) }; });
+    var max = 1;
+    stats.forEach(function(x){ if(x.s){ max = Math.max(max, x.s.inn, x.s.out); } });
+
+    stats.forEach(function(x){
+      var col = document.createElement("div");
+      col.className = "bcol" + (x.k === key ? " bnow" : "");
+      var pair = document.createElement("div");
+      pair.className = "bpair";
+      var bi = document.createElement("span"), bo = document.createElement("span");
+      bi.style.background = "#2a78d6";
+      bo.style.background = "#eb6834";
+      bi.style.height = (x.s ? Math.max(2, x.s.inn / max * 100) : 0) + "%";
+      bo.style.height = (x.s ? Math.max(2, x.s.out / max * 100) : 0) + "%";
+      bi.title = monthLabel(x.k) + " — tiền vào " + VNDc(x.s ? x.s.inn : 0);
+      bo.title = monthLabel(x.k) + " — tiền chi " + VNDc(x.s ? x.s.out : 0);
+      pair.appendChild(bi); pair.appendChild(bo);
+      col.appendChild(pair);
+      var mo = document.createElement("div");
+      mo.className = "bmon";
+      mo.textContent = "T" + parseInt(x.k.split("-")[1], 10);
+      col.appendChild(mo);
+      box.appendChild(col);
+    });
+
+    /* ----- đánh giá ----- */
+    function line(text, cls){
+      var d = document.createElement("div");
+      d.className = "vline" + (cls ? " " + cls : "");
+      var i = document.createElement("i");
+      d.appendChild(i);
+      var sp = document.createElement("span");
+      sp.innerHTML = text;
+      d.appendChild(sp);
+      vb.appendChild(d);
+    }
+    var cur = statFor(key);
+    if(!cur) return;
+    var du = cur.inn - cur.out - cur.saved;
+    line(monthLabel(key) + ": vào <b>" + shortVND(cur.inn) + "</b>, chi <b>" + shortVND(cur.out) +
+         "</b>, cất <b>" + shortVND(cur.saved) + "</b> → " +
+         (du >= 0 ? "dư <b>" + shortVND(du) + "</b>" : "thiếu <b>" + shortVND(-du) + "</b>"),
+         du >= 0 ? "good" : "warn");
+
+    var prevK = prevKeyOf(key), prev = statFor(prevK);
+    if(prev && prev.out > 0){
+      var diff = cur.out - prev.out;
+      var pc = Math.round(Math.abs(diff) / prev.out * 100);
+      line("So với " + monthLabel(prevK) + ": chi " +
+           (diff >= 0 ? "tăng <b>" + pc + "%</b> (+" + shortVND(diff) + ")"
+                      : "giảm <b>" + pc + "%</b> (−" + shortVND(-diff) + ")"),
+           diff > 0 ? "warn" : "good");
+    }
+
+    var have = stats.filter(function(x){ return x.s && (x.s.inn || x.s.out); });
+    if(have.length >= 2){
+      var avg = have.reduce(function(a, b){ return a + b.s.out; }, 0) / have.length;
+      line("Trung bình " + have.length + " tháng gần nhất: chi <b>" + shortVND(avg) + "</b> mỗi tháng");
+    }
+
+    /* mục tăng mạnh nhất so với tháng trước */
+    var pd = monthsAll && monthsAll[prevK];
+    if(pd){
+      var byCat = {}, pc2 = {};
+      data.expenses.forEach(function(e){ var c = e.cat || "Chưa phân mục"; byCat[c] = (byCat[c] || 0) + e.amount; });
+      pd.expenses.forEach(function(e){ var c = e.cat || "Chưa phân mục"; pc2[c] = (pc2[c] || 0) + e.amount; });
+      var best = null;
+      Object.keys(byCat).forEach(function(c){
+        var d2 = byCat[c] - (pc2[c] || 0);
+        if(!best || d2 > best.d) best = { c: c, d: d2 };
+      });
+      if(best && best.d > 0) line("Mục tăng nhiều nhất so với tháng trước: <b>" + best.c + "</b> +" + shortVND(best.d), "warn");
+    }
+
+    var nMonths = monthsAll ? Object.keys(monthsAll).length : 0;
+    var nowHas = data.expenses.length > 0 || data.salary > 0 || data.incomes.length > 0;
+    line("Tình hình cập nhật: đã ghi <b>" + nMonths + "</b> tháng" +
+         (nowHas ? ", " + monthLabel(key) + " có <b>" + data.expenses.length + "</b> khoản chi"
+                 : ", <b>" + monthLabel(key) + " chưa nhập gì</b>"),
+         nowHas ? "" : "warn");
+  }
+
   function toggleLegend(name){
     openLegend[name] = !openLegend[name];
     drawCatReport();
@@ -2292,6 +2633,12 @@ function boot(){
     $("q").value = ""; query = ""; this.hidden = true; render(); $("q").focus();
   });
 
+  $("remapToggle").addEventListener("click", function(){
+    var b = $("remapBox");
+    b.hidden = !b.hidden;
+    this.textContent = b.hidden ? "Phân bổ lại" : "Đóng phân bổ";
+    if(!b.hidden) renderRemap();
+  });
   $("catForm").addEventListener("submit", function(e){
     e.preventDefault();
     var v = $("catInput").value.trim();
@@ -2365,10 +2712,13 @@ function boot(){
 
   /* ---------------- bong bóng góc màn hình ---------------- */
   var BUBS = [
+    { ui: "in",   icon: "#st-coin",  label: "Tiền vào" },
+    { ui: "save", icon: "#st-pig",   label: "Quỹ cất đi" },
     { ui: "buy",  icon: "#st-cart",  label: "Cần mua" },
     { ui: "recv", icon: "#st-note",  label: "Cần thu" },
     { ui: "cfg",  icon: "#st-heart", label: "Cài đặt" }
   ];
+  var dockOpen = false;
   var homes = {}, stash = null, sheetUi = null;
 
   function panelEl(ui){ return document.querySelector('details[data-ui="' + ui + '"]'); }
@@ -2380,6 +2730,10 @@ function boot(){
     BUBS.forEach(function(b){
       var el = panelEl(b.ui);
       if(el) homes[b.ui] = { parent: el.parentNode, next: el.nextSibling };
+    });
+    $("dockMain").addEventListener("click", function(){
+      dockOpen = !dockOpen;
+      $("dockList").hidden = !dockOpen;
     });
     $("sheetClose").addEventListener("click", closeSheet);
     $("scrim").addEventListener("click", function(e){ if(e.target === $("scrim")) closeSheet(); });
@@ -2404,56 +2758,64 @@ function boot(){
     updateDock();
   }
 
-  /* mục nào còn việc thì nằm trong trang, xong hết thì rút về bong bóng */
-  function dockState(ui){
-    if(ui === "cfg") return 0;
-    if(ui === "buy") return buySums(key).wait > 0 ? 1 : 0;
-    if(ui === "recv") return totals().recvWait > 0 ? 1 : 0;
-    return 1;
+  function pendingOf(ui){
+    if(ui === "buy") return visibleBuys(key).filter(function(b){ return !b.done; }).length;
+    if(ui === "recv") return visibleRecv(key).filter(function(r){ return !r.done; }).length;
+    return 0;
   }
 
   function updateDock(){
     if(!stash) return;
-    var dock = $("dock");
-    dock.textContent = "";
+    var list = $("dockList");
+    list.textContent = "";
+    var totalPending = 0;
     BUBS.forEach(function(b){
       var el = panelEl(b.ui);
       if(!el) return;
-      var inline = dockState(b.ui) === 1;
-      if(sheetUi === b.ui) return;           /* đang mở trong lớp phủ */
-      if(inline){
-        var hm = homes[b.ui];
-        if(hm && el.parentNode !== hm.parent) hm.parent.insertBefore(el, hm.next);
-      } else {
-        if(el.parentNode !== stash) stash.appendChild(el);
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "bub";
-        btn.title = b.label;
-        var ic = document.createElement("span");
-        ic.className = "ic";
-        var svg = document.createElementNS(SVGNS, "svg");
-        var use = document.createElementNS(SVGNS, "use");
-        use.setAttribute("href", b.icon);
-        svg.appendChild(use);
-        ic.appendChild(svg);
-        btn.appendChild(ic);
-        var lb = document.createElement("span");
-        lb.className = "lb";
-        lb.textContent = b.label;
-        btn.appendChild(lb);
-        var cnt = b.ui === "buy" ? visibleBuys(key).length
-                : b.ui === "recv" ? visibleRecv(key).length : 0;
-        if(cnt){
-          var bg = document.createElement("span");
-          bg.className = "bg";
-          bg.textContent = cnt;
-          btn.appendChild(bg);
-        }
-        btn.addEventListener("click", function(){ openSheet(b.ui); });
-        dock.appendChild(btn);
+      if(sheetUi !== b.ui && el.parentNode !== stash) stash.appendChild(el);
+
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "bub";
+      btn.title = b.label;
+      var ic = document.createElement("span");
+      ic.className = "ic";
+      var svg = document.createElementNS(SVGNS, "svg");
+      var use = document.createElementNS(SVGNS, "use");
+      use.setAttribute("href", b.icon);
+      svg.appendChild(use);
+      ic.appendChild(svg);
+      btn.appendChild(ic);
+      var lb = document.createElement("span");
+      lb.className = "lb";
+      lb.textContent = b.label;
+      btn.appendChild(lb);
+      var cnt = pendingOf(b.ui);
+      totalPending += cnt;
+      if(cnt){
+        var bg = document.createElement("span");
+        bg.className = "bg";
+        bg.textContent = cnt;
+        btn.appendChild(bg);
       }
+      btn.addEventListener("click", function(){
+        dockOpen = false;
+        $("dockList").hidden = true;
+        openSheet(b.ui);
+      });
+      list.appendChild(btn);
     });
+    list.hidden = !dockOpen;
+
+    var main = $("dockMain");
+    var old = main.querySelector(".dot");
+    if(old) main.removeChild(old);
+    if(totalPending){
+      var dot = document.createElement("span");
+      dot.className = "dot";
+      dot.textContent = totalPending;
+      main.appendChild(dot);
+    }
   }
 
   /* ---------------- sao lưu & cài đặt ---------------- */
@@ -2593,6 +2955,7 @@ function boot(){
   loadRecv();
   loadBuys();
   loadMonth(key);
+  loadAllMonths();
   if(!db) setStatus("Lưu trong máy này");
   wireSettings();
 }
