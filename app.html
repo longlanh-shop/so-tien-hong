@@ -327,6 +327,113 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
   .row .kill{grid-row:1;grid-column:2}
   .headline .aside{max-width:none}
 }
+
+/* ===== dòng gọn (slim) ===== */
+.rows.slim{gap:4px}
+.rows.slim .row{padding:5px 7px 5px 9px;display:grid;grid-template-columns:auto 1fr auto auto;
+  gap:8px;row-gap:0;align-items:center}
+.rows.slim .row .txt{display:flex;align-items:baseline;gap:8px;min-width:0;grid-column:auto;grid-row:auto}
+.rows.slim .row .name{font-size:14px;flex:1 1 auto;min-width:50px}
+.rows.slim .row .note{margin-top:0;font-size:12px;flex:0 1 auto;max-width:48%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rows.slim .row .ctl{grid-column:auto;grid-row:auto;justify-content:flex-end;
+  gap:6px;flex-wrap:nowrap;align-items:center}
+.rows.slim .row .kill{grid-column:auto;grid-row:auto;width:20px;height:20px;font-size:13px}
+.rows.slim .row .amt{width:90px;min-width:0;font-size:14px}
+.rows.slim .row .chip{padding:2px 7px;font-size:10.5px}
+.rows.slim .row .stamp{display:none}
+@media(max-width:620px){
+  .rows.slim .row{grid-template-columns:auto 1fr auto}
+  .rows.slim .row .ctl{grid-column:1/-1;flex-wrap:wrap;margin-top:3px}
+  .rows.slim .row .kill{grid-row:1;grid-column:3}
+}
+
+/* ô tích trạng thái */
+.tick{width:22px;height:22px;flex:none;border-radius:7px;border:1.5px solid var(--line-strong);
+  background:transparent;cursor:pointer;display:grid;place-items:center;padding:0;color:var(--rose-deep);
+  font-size:13px;line-height:1}
+.tick:hover{border-color:var(--rose)}
+.tick.on{background:var(--rose-wash);border-color:transparent}
+.tick svg{width:19px;height:19px;display:block}
+.kindbadge{border:0;background:var(--surface-2);color:var(--ink-faint);border-radius:6px;
+  font-size:10px;letter-spacing:.04em;padding:2px 5px;cursor:pointer;line-height:1.3}
+.kindbadge.fix{background:var(--amber-wash);color:var(--amber)}
+.catmini{border:1px solid var(--line);background:transparent;border-radius:999px;padding:2px 6px;
+  font-size:11px;color:var(--ink-soft);cursor:pointer;max-width:112px;text-overflow:ellipsis;
+  overflow:hidden;white-space:nowrap;-webkit-appearance:none;appearance:none}
+.catmini:hover{border-color:var(--rose)}
+.exp-more{border:0;background:transparent;color:var(--ink-faint);cursor:pointer;font-size:14px;
+  width:20px;height:20px;border-radius:50%;line-height:1}
+.exp-more:hover{background:var(--rose-wash);color:var(--rose-deep)}
+.exp-note{grid-column:1/-1;display:flex;gap:8px;align-items:center;padding-top:5px;
+  border-top:1px dashed var(--line);margin-top:2px}
+.exp-note input{flex:1;border:0;background:transparent;font-size:12.5px;color:var(--ink-soft);padding:0}
+.exp-note input:focus{outline:none}
+
+/* ===== nhóm "đã chi" theo mục ===== */
+.catgrp{border:1px solid var(--line);border-radius:11px;margin-bottom:6px;overflow:hidden;background:var(--surface)}
+.catgrp > .gh{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;
+  cursor:pointer;padding:9px 12px;text-align:left;color:var(--ink)}
+.catgrp > .gh:hover{background:var(--rose-wash)}
+.catgrp > .gh .arw{color:var(--rose);font-size:12px;transition:transform .18s ease;display:inline-block}
+.catgrp.open > .gh .arw{transform:rotate(90deg)}
+.catgrp > .gh .gname{flex:1;font-size:14px;font-weight:500;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.catgrp > .gh .gn{font-size:11.5px;color:var(--ink-faint);white-space:nowrap}
+.catgrp > .gh .gamt{font-variant-numeric:tabular-nums;font-weight:600;font-size:14px;white-space:nowrap}
+.catgrp .rows{margin:0;padding:6px 8px 8px;background:var(--surface-2)}
+
+/* ===== biểu đồ tròn ===== */
+.donutwrap{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:flex-start;margin-top:6px}
+.donut{flex:0 0 auto;position:relative;width:196px;height:196px}
+.donut svg{width:100%;height:100%;display:block;transform:rotate(-90deg)}
+.donut .hole{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none}
+.donut .hole b{display:block;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;
+  color:var(--ink);line-height:1.15}
+.donut .hole span{display:block;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-faint);margin-top:1px}
+.donut path{cursor:pointer;transition:opacity .15s ease}
+.donut path:hover{opacity:.78}
+.legend{flex:1 1 300px;min-width:260px;display:flex;flex-direction:column;gap:1px}
+.lgrow{display:grid;grid-template-columns:12px 1fr auto auto;gap:9px;align-items:center;
+  padding:7px 6px;border:0;background:transparent;cursor:pointer;text-align:left;
+  border-bottom:1px dashed var(--line);color:var(--ink)}
+.lgrow:hover{background:var(--rose-wash)}
+.lgrow .sw{width:11px;height:11px;border-radius:3px}
+.lgrow .lgn{font-size:13.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lgrow .lgp{font-size:13px;color:var(--ink-soft);font-variant-numeric:tabular-nums;min-width:44px;text-align:right}
+.lgrow .lga{font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums;min-width:86px;text-align:right}
+.lgdetail{padding:4px 6px 10px 32px;display:flex;flex-direction:column;gap:3px;
+  border-bottom:1px dashed var(--line)}
+.lgdetail div{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;color:var(--ink-soft)}
+.lgdetail b{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.lgdetail .un{color:var(--amber)}
+
+/* ===== bong bóng góc màn hình ===== */
+.dock{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;flex-direction:column;
+  align-items:flex-end;gap:9px}
+.bub{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line-strong);
+  border-radius:999px;padding:5px 13px 5px 5px;box-shadow:0 4px 16px -4px rgba(112,54,76,.32);
+  cursor:pointer;color:var(--ink)}
+.bub:hover{border-color:var(--rose);background:var(--rose-wash)}
+.bub .ic{width:34px;height:34px;flex:none;border-radius:50%;background:var(--rose-wash);
+  display:grid;place-items:center}
+.bub .ic svg{width:24px;height:24px}
+.bub .lb{font-size:12.5px;font-weight:500;white-space:nowrap}
+.bub .bg{background:var(--rose);color:#fff;border-radius:999px;font-size:10.5px;padding:1px 6px;
+  font-variant-numeric:tabular-nums}
+@media(max-width:560px){ .bub .lb{display:none} .bub{padding:5px} }
+
+.scrim{position:fixed;inset:0;background:rgba(40,18,28,.45);z-index:45;
+  display:grid;place-items:center;padding:18px}
+.sheet{background:var(--ground);border-radius:20px;width:min(760px,100%);max-height:88vh;
+  overflow:auto;padding:14px;box-shadow:0 20px 60px -20px rgba(0,0,0,.5)}
+.sheet .panel{box-shadow:none}
+.sheetbar{display:flex;justify-content:flex-end;margin-bottom:6px}
+.sheetbar button{border:0;background:var(--surface);color:var(--ink-soft);border-radius:999px;
+  width:30px;height:30px;font-size:17px;cursor:pointer;line-height:1}
+.sheetbar button:hover{background:var(--rose-wash);color:var(--rose-deep)}
+
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -527,7 +634,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
         </div>
         <p class="hint">Gõ tắt được: <b>12tr</b>, <b>500k</b>, hay <b>12.000.000</b>. <button class="link" id="carry" type="button">Lấy số dư từ tháng trước</button></p>
         <div class="groupline">Khoản thu thêm trong tháng</div>
-        <ul class="rows" id="listIncome"></ul>
+        <ul class="rows slim two" id="listIncome"></ul>
         <p class="empty" id="emptyIncome" hidden>Chưa có khoản thu thêm nào.</p>
         <button class="add" id="addIncome" type="button">+ Thêm khoản thu</button>
       </div>
@@ -547,12 +654,12 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
           <span class="cur">đ</span>
         </div>
         <p class="hint" style="margin-bottom:2px">Cất trước rồi mới tiêu. Ghi rõ cất vào đâu và để làm gì.</p>
-        <ul class="rows" id="listSave"></ul>
+        <ul class="rows slim" id="listSave"></ul>
         <p class="empty" id="emptySave" hidden>Chưa cất khoản nào.</p>
         <button class="add" id="addSave" type="button">+ Thêm khoản cất</button>
 
         <div class="groupline">Rút ra từ quỹ</div>
-        <ul class="rows" id="listDraw"></ul>
+        <ul class="rows slim" id="listDraw"></ul>
         <p class="empty" id="emptyDraw" hidden>Chưa rút khoản nào.</p>
         <button class="add" id="addDraw" type="button">+ Rút từ quỹ</button>
         <p class="hint">Tiền rút ra được cộng vào số tiền đang có để tiêu.</p>
@@ -571,7 +678,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
       <div class="pbody">
         <button class="add" id="addBuy" type="button" style="margin-top:0">+ Thứ cần mua</button>
         <p class="hint">Ghi trước những thứ tháng sau phải mua để biết sẽ cần bao nhiêu. Chưa mua thì tự hiện lại ở các tháng sau; mua rồi bấm <b>Đã mua</b> là được đóng dấu mèo và đẩy xuống cuối.</p>
-        <ul class="rows two" id="listBuy"></ul>
+        <ul class="rows slim two" id="listBuy"></ul>
         <p class="empty" id="emptyBuy" hidden>Chưa ghi thứ nào cần mua.</p>
       </div>
     </details>
@@ -586,7 +693,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
       <div class="pbody">
         <button class="add" id="addRecv" type="button" style="margin-top:0">+ Khoản cần thu</button>
         <p class="hint">Ai nợ mình, thu cho việc gì. Chưa thu thì tự hiện lại ở các tháng sau; bấm <b>Đã thu</b> là cộng vào tiền đang có của tháng đó.</p>
-        <ul class="rows two" id="listRecv"></ul>
+        <ul class="rows slim two" id="listRecv"></ul>
         <p class="empty" id="emptyRecv" hidden>Chưa có khoản nào cần thu.</p>
       </div>
     </details>
@@ -618,14 +725,14 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
           </form>
         </div>
         <p class="hint" id="qinfo" hidden></p>
-        <p class="hint">Chưa chi nằm trên, đã chi đóng dấu mèo và xuống cuối. Nhãn <b>Cố định</b> hay <b>Phát sinh</b> ở ngay trên mỗi dòng.</p>
+        <p class="hint">Bấm ô vuông đầu dòng để đánh dấu đã chi — khoản đó đóng dấu mèo rồi dồn vào nhóm theo mục bên dưới. <b>CĐ</b> là cố định, <b>PS</b> là phát sinh, bấm để đổi. Nút <b>⋯</b> mở ô ghi chú.</p>
 
         <div class="groupline" id="glTodo">Chưa chi</div>
-        <ul class="rows two" id="listTodo"></ul>
+        <ul class="rows slim two" id="listTodo"></ul>
         <p class="empty" id="emptyTodo" hidden>Không còn khoản nào chưa chi.</p>
 
         <div class="groupline" id="glPaid">Đã chi</div>
-        <ul class="rows two" id="listPaid"></ul>
+        <div id="paidGroups"></div>
         <p class="empty" id="emptyPaid" hidden>Chưa có khoản nào được đánh dấu đã chi.</p>
 
       </div>
@@ -662,7 +769,13 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
 
       <div class="bycat">
         <h3 style="font-family:var(--f-body);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin:0 0 4px">Chi theo mục</h3>
-        <div id="catReport"></div>
+        <div class="donutwrap">
+          <div class="donut">
+            <svg id="donut" viewBox="0 0 100 100" role="img" aria-label="Tỷ lệ chi theo mục"></svg>
+            <div class="hole"><b id="donutTotal">0</b><span>tổng chi</span></div>
+          </div>
+          <div class="legend" id="catReport"></div>
+        </div>
       </div>
 
       <div class="repfoot">
@@ -720,6 +833,14 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
     </div>
   </details>
 
+  <div class="dock" id="dock"></div>
+  <div class="scrim" id="scrim" hidden>
+    <div class="sheet">
+      <div class="sheetbar"><button type="button" id="sheetClose" aria-label="Đóng">×</button></div>
+      <div id="sheetBody"></div>
+    </div>
+  </div>
+
   <p class="status" id="status">Đang mở sổ…</p>
 
   <footer class="note">
@@ -732,7 +853,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
 (function(){
   "use strict";
 
-  var BUILD = "b6 · app";
+  var BUILD = "b7 · app";
   var gate = document.getElementById("gate");
   var app = document.getElementById("app");
   var booted = false;
@@ -1436,30 +1557,53 @@ function boot(){
     return li;
   }
 
+  var SVGNS = "http://www.w3.org/2000/svg";
+
   function expenseRow(it){
     var li = document.createElement("li");
-    li.className = "row" + (it.paid ? " done" : "");
+    li.className = "row slimrow" + (it.paid ? " done" : "");
+    if(it.paid && data.actual !== null && (it.paidAt || 0) > data.actualAt) li.className += " aftercount";
+
+    var tick = document.createElement("button");
+    tick.type = "button";
+    tick.className = "tick" + (it.paid ? " on" : "");
+    if(it.paid){
+      var ts = document.createElementNS(SVGNS, "svg");
+      var tu = document.createElementNS(SVGNS, "use");
+      tu.setAttribute("href", "#st-stamp");
+      ts.appendChild(tu);
+      tick.appendChild(ts);
+    }
+    tick.title = it.paid ? "Đã chi — bấm để bỏ đánh dấu" : "Chưa chi — bấm khi trả xong";
+    tick.setAttribute("aria-label", tick.title);
+    tick.addEventListener("click", function(){
+      it.paid = !it.paid;
+      it.paidAt = it.paid ? Date.now() : 0;
+      queueSave(); render();
+    });
+    li.appendChild(tick);
+
     var txt = document.createElement("div");
     txt.className = "txt";
     txt.appendChild(textInput("name", it.name, "Chi cho gì?", function(v){ it.name = v; queueSave(); }));
-    txt.appendChild(textInput("note", it.note, "Ghi chú", function(v){ it.note = v; queueSave(); }));
     li.appendChild(txt);
 
     var ctl = document.createElement("div");
     ctl.className = "ctl";
-    if(it.paid){
-      var st = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      st.setAttribute("class", "stamp");
-      st.setAttribute("aria-hidden", "true");
-      var u = document.createElementNS("http://www.w3.org/2000/svg", "use");
-      u.setAttribute("href", "#st-stamp");
-      st.appendChild(u);
-      ctl.appendChild(st);
-    }
-    ctl.appendChild(amtInput(it.amount, function(v){ it.amount = v; queueSave(); paint(); }));
+
+    var kind = document.createElement("button");
+    kind.type = "button";
+    kind.className = "kindbadge" + (it.kind === "fixed" ? " fix" : "");
+    kind.textContent = it.kind === "fixed" ? "CĐ" : "PS";
+    kind.title = it.kind === "fixed" ? "Cố định — bấm để đổi sang phát sinh" : "Phát sinh — bấm để đổi sang cố định";
+    kind.addEventListener("click", function(){
+      it.kind = it.kind === "fixed" ? "extra" : "fixed";
+      queueSave(); render();
+    });
+    ctl.appendChild(kind);
 
     var sel = document.createElement("select");
-    sel.className = "cat";
+    sel.className = "catmini";
     sel.title = "Mục chi";
     var o0 = document.createElement("option");
     o0.value = ""; o0.textContent = "chưa phân mục";
@@ -1472,40 +1616,83 @@ function boot(){
       sel.appendChild(o);
     });
     sel.value = it.cat || "";
-    sel.addEventListener("change", function(){ it.cat = sel.value; queueSave(); paint(); });
+    sel.addEventListener("change", function(){ it.cat = sel.value; queueSave(); render(); });
     ctl.appendChild(sel);
 
-    var pay = document.createElement("button");
-    pay.type = "button";
-    pay.className = "chip " + (it.paid ? "on-paid" : "on-todo");
-    pay.textContent = it.paid ? "Đã chi" : "Chưa chi";
-    pay.addEventListener("click", function(){
-      it.paid = !it.paid;
-      it.paidAt = it.paid ? Date.now() : 0;
-      queueSave(); render();
-    });
-    ctl.appendChild(pay);
-    if(it.paid && data.actual !== null && (it.paidAt || 0) > data.actualAt){
-      ctl.appendChild(tagChip("trừ sau khi đếm", "Đã trừ khỏi số tiền thực tế"));
-    }
+    ctl.appendChild(amtInput(it.amount, function(v){ it.amount = v; queueSave(); paint(); }));
 
-    var kind = document.createElement("button");
-    kind.type = "button";
-    kind.className = "chip on-fixed";
-    kind.textContent = it.kind === "fixed" ? "Cố định" : "Phát sinh";
-    kind.title = "Đổi loại khoản chi";
-    kind.addEventListener("click", function(){
-      it.kind = it.kind === "fixed" ? "extra" : "fixed";
-      queueSave(); render();
-    });
-    ctl.appendChild(kind);
+    var more = document.createElement("button");
+    more.type = "button";
+    more.className = "exp-more";
+    more.textContent = "⋯";
+    more.title = "Ghi chú";
+    more.setAttribute("aria-label", "Ghi chú");
+    ctl.appendChild(more);
     li.appendChild(ctl);
 
     li.appendChild(killBtn(function(){
       data.expenses = data.expenses.filter(function(x){ return x !== it; });
       queueSave(); render();
     }, "Xoá khoản chi"));
+
+    var nz = document.createElement("div");
+    nz.className = "exp-note";
+    nz.hidden = !it.note;
+    nz.appendChild(textInput("", it.note, "Ghi chú", function(v){ it.note = v; queueSave(); }));
+    if(li.className.indexOf("aftercount") !== -1){
+      nz.appendChild(tagChip("trừ sau khi đếm", "Đã trừ khỏi số tiền thực tế"));
+    }
+    li.appendChild(nz);
+    more.addEventListener("click", function(){
+      nz.hidden = !nz.hidden;
+      if(!nz.hidden){ var inp = nz.querySelector("input"); if(inp) inp.focus(); }
+    });
     return li;
+  }
+
+  /* ----- nhóm "đã chi" theo mục, gập lại ----- */
+  var openCats = {};
+  function renderPaidGroups(rows){
+    var box = $("paidGroups");
+    box.textContent = "";
+    var map = {}, order = [];
+    rows.forEach(function(e){
+      var k = e.cat || "Chưa phân mục";
+      if(!map[k]){ map[k] = { name: k, items: [], total: 0 }; order.push(k); }
+      map[k].items.push(e);
+      map[k].total += e.amount;
+    });
+    var groups = order.map(function(k){ return map[k]; })
+                      .sort(function(a, b){ return b.total - a.total; });
+    groups.forEach(function(g){
+      var open = !!openCats[g.name] || !!query;
+      var wrap = document.createElement("div");
+      wrap.className = "catgrp" + (open ? " open" : "");
+      var gh = document.createElement("button");
+      gh.type = "button"; gh.className = "gh";
+      var arw = document.createElement("span"); arw.className = "arw"; arw.textContent = "▸";
+      var nm = document.createElement("span"); nm.className = "gname"; nm.textContent = g.name;
+      var gn = document.createElement("span"); gn.className = "gn"; gn.textContent = g.items.length + " khoản";
+      var ga = document.createElement("span"); ga.className = "gamt"; ga.textContent = VNDc(g.total);
+      gh.appendChild(arw); gh.appendChild(nm); gh.appendChild(gn); gh.appendChild(ga);
+      wrap.appendChild(gh);
+      var ul = document.createElement("ul");
+      ul.className = "rows slim two";
+      ul.hidden = !open;
+      g.items.forEach(function(it){
+        var node = expenseRow(it);
+        if(it.id) node.setAttribute("data-id", it.id);
+        ul.appendChild(node);
+      });
+      wrap.appendChild(ul);
+      gh.addEventListener("click", function(){
+        openCats[g.name] = !openCats[g.name];
+        var on = !!openCats[g.name];
+        wrap.classList.toggle("open", on);
+        ul.hidden = !on;
+      });
+      box.appendChild(wrap);
+    });
   }
 
   /* ---------------- report ---------------- */
@@ -1543,41 +1730,118 @@ function boot(){
     $("rWait").textContent = VNDc(t.recvWait);
     $("rFund").textContent = VNDc(t.fund);
 
-    var box = $("catReport");
-    box.textContent = "";
+    drawCatReport();
+  }
+
+  /* ---------------- biểu đồ tròn theo mục ---------------- */
+  var CAT_LIGHT = ["#2a78d6","#eb6834","#1baf7a","#eda100","#e87ba4","#008300","#6250d6","#e34948"];
+  var CAT_DARK  = ["#3987e5","#d95926","#199e70","#c98500","#d55181","#008300","#9085e9","#e66767"];
+  var REST_LIGHT = "#8d7580", REST_DARK = "#a98d9b";
+  var openLegend = {};
+
+  function isDark(){
+    var t = document.documentElement.getAttribute("data-theme");
+    if(t === "dark") return true;
+    if(t === "light") return false;
+    try { return window.matchMedia("(prefers-color-scheme: dark)").matches; } catch(e){ return false; }
+  }
+  function catColor(i){
+    var pal = isDark() ? CAT_DARK : CAT_LIGHT;
+    return i < pal.length ? pal[i] : (isDark() ? REST_DARK : REST_LIGHT);
+  }
+
+  function shortVND(n){
+    var v = Math.abs(n);
+    if(v >= 1e9) return (n / 1e9).toFixed(1).replace(".", ",") + " tỷ";
+    if(v >= 1e6) return (n / 1e6).toFixed(1).replace(".", ",") + " tr";
+    if(v >= 1e3) return Math.round(n / 1e3) + "k";
+    return VND(n);
+  }
+
+  function drawCatReport(){
+    var svg = $("donut"), box = $("catReport");
+    svg.textContent = ""; box.textContent = "";
     var groups = byCategory();
-    if(!groups.length){
+    var total = groups.reduce(function(a, b){ return a + b.total; }, 0);
+    $("donutTotal").textContent = shortVND(total);
+    if(!groups.length || total <= 0){
       var p = document.createElement("p");
       p.className = "empty";
       p.textContent = "Chưa có khoản chi nào để tổng hợp.";
       box.appendChild(p);
       return;
     }
-    var max = groups[0].total || 1;
-    groups.forEach(function(g){
-      var row = document.createElement("div");
-      row.className = "catrow";
-      var n = document.createElement("div");
-      n.className = "cname";
-      n.appendChild(document.createTextNode(g.name));
-      var sub = document.createElement("span");
-      sub.className = "csub";
-      sub.textContent = g.todo ? "đã chi " + VND(g.paid) + " · chưa chi " + VND(g.todo)
-                               : g.n + " khoản, đã chi xong";
-      n.appendChild(sub);
-      row.appendChild(n);
-      var a = document.createElement("div");
-      a.className = "camt";
-      a.textContent = VNDc(g.total);
-      row.appendChild(a);
-      var m = document.createElement("div");
-      m.className = "cmeter";
-      var i = document.createElement("i");
-      i.style.width = (g.total / max * 100) + "%";
-      m.appendChild(i);
-      row.appendChild(m);
-      box.appendChild(row);
+
+    var r = 34, C = 2 * Math.PI * r, gap = groups.length > 1 ? 1.6 : 0, acc = 0;
+    var ring = document.createElementNS(SVGNS, "circle");
+    ring.setAttribute("cx", 50); ring.setAttribute("cy", 50); ring.setAttribute("r", r);
+    ring.setAttribute("fill", "none");
+    ring.setAttribute("stroke", "var(--surface-2)");
+    ring.setAttribute("stroke-width", 15);
+    svg.appendChild(ring);
+
+    groups.forEach(function(g, i){
+      g.color = catColor(i);
+      g.pct = (g.total / total) * 100;
     });
+
+    groups.forEach(function(g){
+      var frac = g.total / total;
+      if(frac <= 0) return;
+      var len = Math.max(frac * C - gap, 0.8);
+      var arc = document.createElementNS(SVGNS, "circle");
+      arc.setAttribute("cx", 50); arc.setAttribute("cy", 50); arc.setAttribute("r", r);
+      arc.setAttribute("fill", "none");
+      arc.setAttribute("stroke", g.color);
+      arc.setAttribute("stroke-width", 15);
+      arc.setAttribute("stroke-dasharray", len + " " + (C - len));
+      arc.setAttribute("stroke-dashoffset", -acc);
+      var ttl = document.createElementNS(SVGNS, "title");
+      ttl.textContent = g.name + " — " + g.pct.toFixed(1) + "% · " + VNDc(g.total);
+      arc.appendChild(ttl);
+      arc.addEventListener("click", function(){ toggleLegend(g.name); });
+      svg.appendChild(arc);
+      acc += frac * C;
+    });
+
+    groups.forEach(function(g){
+      var row = document.createElement("button");
+      row.type = "button";
+      row.className = "lgrow";
+      var sw = document.createElement("span");
+      sw.className = "sw"; sw.style.background = g.color;
+      var nm = document.createElement("span");
+      nm.className = "lgn"; nm.textContent = g.name;
+      var pc = document.createElement("span");
+      pc.className = "lgp"; pc.textContent = g.pct.toFixed(1) + "%";
+      var am = document.createElement("span");
+      am.className = "lga"; am.textContent = VNDc(g.total);
+      row.appendChild(sw); row.appendChild(nm); row.appendChild(pc); row.appendChild(am);
+      row.addEventListener("click", function(){ toggleLegend(g.name); });
+      box.appendChild(row);
+
+      if(openLegend[g.name]){
+        var det = document.createElement("div");
+        det.className = "lgdetail";
+        data.expenses.filter(function(e){ return (e.cat || "Chưa phân mục") === g.name; })
+          .sort(function(a, b){ return b.amount - a.amount; })
+          .forEach(function(e){
+            var line = document.createElement("div");
+            var nm2 = document.createElement("span");
+            nm2.textContent = (e.name || "Không tên") + (e.paid ? "" : " (chưa chi)");
+            if(!e.paid) nm2.className = "un";
+            var v = document.createElement("b");
+            v.textContent = VNDc(e.amount);
+            line.appendChild(nm2); line.appendChild(v);
+            det.appendChild(line);
+          });
+        box.appendChild(det);
+      }
+    });
+  }
+  function toggleLegend(name){
+    openLegend[name] = !openLegend[name];
+    drawCatReport();
   }
 
   function reportText(){
@@ -1819,6 +2083,7 @@ function boot(){
     $("barLeft").style.width = (Math.max(0, Math.max(t.left, 0)) / span * 100) + "%";
 
     report(t);
+    updateDock();
   }
 
   function render(){
@@ -1837,7 +2102,8 @@ function boot(){
     renderList($("listBuy"), $("emptyBuy"), visibleBuys(key), buyRow);
     var todoRows = listPaidState(false), paidRows = listPaidState(true);
     renderList($("listTodo"), $("emptyTodo"), todoRows, expenseRow);
-    renderList($("listPaid"), $("emptyPaid"), paidRows, expenseRow);
+    renderPaidGroups(paidRows);
+    $("emptyPaid").hidden = paidRows.length > 0;
     $("glTodo").textContent = todoRows.length ? "Chưa chi (" + todoRows.length + ")" : "Chưa chi";
     $("glPaid").textContent = paidRows.length ? "Đã chi (" + paidRows.length + ")" : "Đã chi";
     if(query){
@@ -2096,6 +2362,100 @@ function boot(){
     } catch(e){ say("Không tải được"); }
   });
 
+
+  /* ---------------- bong bóng góc màn hình ---------------- */
+  var BUBS = [
+    { ui: "buy",  icon: "#st-cart",  label: "Cần mua" },
+    { ui: "recv", icon: "#st-note",  label: "Cần thu" },
+    { ui: "cfg",  icon: "#st-heart", label: "Cài đặt" }
+  ];
+  var homes = {}, stash = null, sheetUi = null;
+
+  function panelEl(ui){ return document.querySelector('details[data-ui="' + ui + '"]'); }
+
+  function initDock(){
+    stash = document.createElement("div");
+    stash.hidden = true;
+    document.body.appendChild(stash);
+    BUBS.forEach(function(b){
+      var el = panelEl(b.ui);
+      if(el) homes[b.ui] = { parent: el.parentNode, next: el.nextSibling };
+    });
+    $("sheetClose").addEventListener("click", closeSheet);
+    $("scrim").addEventListener("click", function(e){ if(e.target === $("scrim")) closeSheet(); });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape") closeSheet(); });
+  }
+
+  function openSheet(ui){
+    var el = panelEl(ui);
+    if(!el) return;
+    closeSheet();
+    sheetUi = ui;
+    $("sheetBody").appendChild(el);
+    el.open = true;
+    $("scrim").hidden = false;
+  }
+  function closeSheet(){
+    if(!sheetUi) { $("scrim").hidden = true; return; }
+    var el = panelEl(sheetUi);
+    sheetUi = null;
+    $("scrim").hidden = true;
+    if(el) stash.appendChild(el);
+    updateDock();
+  }
+
+  /* mục nào còn việc thì nằm trong trang, xong hết thì rút về bong bóng */
+  function dockState(ui){
+    if(ui === "cfg") return 0;
+    if(ui === "buy") return buySums(key).wait > 0 ? 1 : 0;
+    if(ui === "recv") return totals().recvWait > 0 ? 1 : 0;
+    return 1;
+  }
+
+  function updateDock(){
+    if(!stash) return;
+    var dock = $("dock");
+    dock.textContent = "";
+    BUBS.forEach(function(b){
+      var el = panelEl(b.ui);
+      if(!el) return;
+      var inline = dockState(b.ui) === 1;
+      if(sheetUi === b.ui) return;           /* đang mở trong lớp phủ */
+      if(inline){
+        var hm = homes[b.ui];
+        if(hm && el.parentNode !== hm.parent) hm.parent.insertBefore(el, hm.next);
+      } else {
+        if(el.parentNode !== stash) stash.appendChild(el);
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "bub";
+        btn.title = b.label;
+        var ic = document.createElement("span");
+        ic.className = "ic";
+        var svg = document.createElementNS(SVGNS, "svg");
+        var use = document.createElementNS(SVGNS, "use");
+        use.setAttribute("href", b.icon);
+        svg.appendChild(use);
+        ic.appendChild(svg);
+        btn.appendChild(ic);
+        var lb = document.createElement("span");
+        lb.className = "lb";
+        lb.textContent = b.label;
+        btn.appendChild(lb);
+        var cnt = b.ui === "buy" ? visibleBuys(key).length
+                : b.ui === "recv" ? visibleRecv(key).length : 0;
+        if(cnt){
+          var bg = document.createElement("span");
+          bg.className = "bg";
+          bg.textContent = cnt;
+          btn.appendChild(bg);
+        }
+        btn.addEventListener("click", function(){ openSheet(b.ui); });
+        dock.appendChild(btn);
+      }
+    });
+  }
+
   /* ---------------- sao lưu & cài đặt ---------------- */
   function download(data, name, mime){
     var blob = (data instanceof Blob) ? data : new Blob([data], { type: mime || "application/octet-stream" });
@@ -2225,6 +2585,10 @@ function boot(){
 
   /* ---------------- start ---------------- */
   db = window.__db || null;
+  initDock();
+  try {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function(){ paint(); });
+  } catch(e){}
   loadCats();
   loadRecv();
   loadBuys();
