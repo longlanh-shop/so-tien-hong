@@ -3,8 +3,8 @@
   "short_name": "Sổ Tiền Hồng",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#FFDBED",
-  "theme_color": "#FFDBED",
+  "background_color": "#2A1118",
+  "theme_color": "#2A1118",
   "icons": [
     {
       "src": "icon-192.png",

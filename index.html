@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#FFDBED" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#4C1413" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#2A1118">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="So Tien Hong">
@@ -14,9 +13,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <style>
-  :root{color-scheme:light dark}
+  :root{color-scheme:light}
   html,body{margin:0}
-  body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#FFDBED}
+  body{font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#1E0C12}
   img{max-width:100%}
   [hidden]{display:none!important}
 </style>
@@ -36,67 +35,30 @@
 }
 
 :root{
-  --ground:#FFDBED;
+  --ground:#2A1118;
   --surface:#FFF2F7;
-  --surface-2:#FFE6F0;
+  --surface-2:#FFE4EF;
   --ink:#4C1413;
   --ink-soft:#8A4448;
-  --ink-faint:#B2757D;
-  --line:#F6C6D9;
-  --line-strong:#EBA6BF;
-  --rose:#EA6B7E;
-  --rose-deep:#C33F57;
+  --ink-faint:#AE717A;
+  --line:#F4C4D7;
+  --line-strong:#E8A2BC;
+  --rose:#E0566E;
+  --rose-deep:#C0344C;
   --rose-wash:#FFE4EC;
-  --sage:#4F9A80;
+  --sage:#3F8A70;
   --sage-wash:#DDF0E7;
-  --amber:#BE7733;
+  --amber:#AE6A2B;
   --amber-wash:#FCEBD8;
-  --shadow:0 1px 2px rgba(76,20,19,.06), 0 8px 24px -14px rgba(76,20,19,.32);
+  --shadow:0 2px 4px rgba(30,10,16,.18), 0 14px 34px -18px rgba(30,10,16,.7);
   --radius:14px;
   --f-display:"MJ Agrade Slabers","Be Vietnam Pro",Georgia,serif;
   --f-body:"Be Vietnam Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --ground:#4C1413;
-  --surface:#5C1E1D;
-  --surface-2:#6B2928;
-  --ink:#FFDBED;
-  --ink-soft:#DFAEBF;
-  --ink-faint:#B88796;
-  --line:#733231;
-  --line-strong:#8E4443;
-  --rose:#EA6B7E;
-  --rose-deep:#FFA3B4;
-  --rose-wash:#6E2A2E;
-  --sage:#86C7AC;
-  --sage-wash:#2C4238;
-  --amber:#E5AC72;
-  --amber-wash:#4A3324;
-  --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 26px -16px rgba(0,0,0,.75);
-  }
-}
-:root[data-theme="dark"]{
-  --ground:#4C1413;
-  --surface:#5C1E1D;
-  --surface-2:#6B2928;
-  --ink:#FFDBED;
-  --ink-soft:#DFAEBF;
-  --ink-faint:#B88796;
-  --line:#733231;
-  --line-strong:#8E4443;
-  --rose:#EA6B7E;
-  --rose-deep:#FFA3B4;
-  --rose-wash:#6E2A2E;
-  --sage:#86C7AC;
-  --sage-wash:#2C4238;
-  --amber:#E5AC72;
-  --amber-wash:#4A3324;
-  --shadow:0 1px 2px rgba(0,0,0,.35), 0 10px 26px -16px rgba(0,0,0,.75);
-}
 
 *{box-sizing:border-box}
-body{margin:0;background:var(--ground);color:var(--ink);
+body{margin:0;background:linear-gradient(150deg,#1E0C12 0%,#431924 28%,#74343F 56%,#A65C6C 80%,#CE8E9C 100%);background-attachment:fixed;
+  background-color:#2A1118;color:var(--ink);
   font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:var(--f-display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -104,7 +66,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .stk{width:26px;height:26px;flex:none}
 
 /* ---------- gate ---------- */
-#gate{position:fixed;inset:0;background:var(--ground);display:grid;place-items:center;padding:24px;z-index:50}
+#gate{position:fixed;inset:0;background:linear-gradient(150deg,#1E0C12 0%,#431924 28%,#74343F 56%,#A65C6C 80%,#CE8E9C 100%);background-color:#2A1118;display:grid;place-items:center;padding:24px;z-index:50}
 .gatecard{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);
   padding:30px 28px 26px;width:min(360px,100%);text-align:center}
 .gatecard .stk{width:64px;height:64px;margin:0 auto 6px}
@@ -136,8 +98,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .masthead{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
 .brand{display:flex;gap:12px;align-items:flex-start}
 .brand .stk{width:52px;height:52px;margin-top:2px}
-.brand h1{font-size:clamp(30px,5.2vw,44px);line-height:1.05;color:var(--rose-deep)}
-.brand p{margin:6px 0 0;color:var(--ink-soft);font-size:13.5px;max-width:44ch}
+.brand h1{font-size:clamp(30px,5.2vw,44px);line-height:1.05;color:#FFC6D3}
+.brand p{margin:6px 0 0;color:#E7C8D3;font-size:13.5px;max-width:44ch}
+.brand .stk{color:#FFB9C8}
 
 .monthbar{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);
   border-radius:999px;padding:5px 6px;box-shadow:var(--shadow)}
@@ -160,8 +123,6 @@ button,input,select,textarea{font:inherit;color:inherit}
   font-variant-numeric:tabular-nums;color:var(--rose-deep);line-height:1.1}
 .bignum.now{color:var(--sage)}
 .bignum.neg{color:#C0392B}
-:root[data-theme="dark"] .bignum.neg{color:#FF9C8F}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bignum.neg{color:#FF9C8F}}
 .headline .aside{color:var(--ink-soft);font-size:12.5px;max-width:34ch;margin:0;flex:1 1 220px}
 
 .ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:2px;
@@ -404,14 +365,16 @@ select.cat{border:1px solid var(--line-strong);background:var(--surface);border-
 
 .repbtns{display:flex;gap:8px;flex-wrap:wrap}
 .banner{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
-  background:var(--rose-wash);border:1px solid var(--line);border-radius:12px;padding:10px 14px;
-  font-size:13px;color:var(--rose-deep);margin-bottom:14px}
+  background:var(--surface);border:1px solid var(--line-strong);border-radius:12px;padding:10px 14px;
+  font-size:13px;color:var(--rose-deep);margin-bottom:14px;box-shadow:var(--shadow)}
 .banner button{background:var(--surface);border:1px solid var(--line-strong);color:var(--rose-deep);
   border-radius:8px;padding:5px 11px;font-size:12.5px;cursor:pointer;font-weight:500}
-.status{font-size:12px;color:var(--ink-faint);margin-top:18px;text-align:right;cursor:pointer}
-.status:hover{color:var(--rose-deep)}
-footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1px solid var(--line);
+.status{font-size:12px;color:#E0BDCA;margin-top:18px;text-align:right;cursor:pointer}
+.status:hover{color:#FFE2EC}
+footer.note{margin-top:26px;font-size:12.5px;color:#E7C8D3;border-top:1px solid rgba(255,220,235,.22);
   padding-top:14px;max-width:64ch;display:flex;gap:12px;align-items:flex-start}
+footer.note b{color:#FFE2EC}
+footer.note .stk{color:#FFB9C8}
 
 @media(max-width:560px){
   .row{grid-template-columns:1fr auto;row-gap:6px}
@@ -554,7 +517,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
 
 .scrim{position:fixed;inset:0;background:rgba(40,18,28,.45);z-index:45;
   display:grid;place-items:center;padding:18px}
-.sheet{background:var(--ground);border-radius:20px;width:min(760px,100%);max-height:88vh;
+.sheet{background:linear-gradient(150deg,#2A1118 0%,#4A1D28 55%,#6E3240 100%);border-radius:20px;width:min(760px,100%);max-height:88vh;
   overflow:auto;padding:14px;box-shadow:0 20px 60px -20px rgba(0,0,0,.5)}
 .sheet .panel{box-shadow:none}
 .sheetbar{display:flex;justify-content:flex-end;margin-bottom:6px}
@@ -1032,7 +995,7 @@ footer.note{margin-top:26px;font-size:12.5px;color:var(--ink-faint);border-top:1
 (function(){
   "use strict";
 
-  var BUILD = "b9 · index";
+  var BUILD = "b10 · index";
   var gate = document.getElementById("gate");
   var app = document.getElementById("app");
   var booted = false;
@@ -2320,10 +2283,8 @@ function boot(){
   var openLegend = {};
 
   function isDark(){
-    var t = document.documentElement.getAttribute("data-theme");
-    if(t === "dark") return true;
-    if(t === "light") return false;
-    try { return window.matchMedia("(prefers-color-scheme: dark)").matches; } catch(e){ return false; }
+    /* thẻ luôn là nền sáng nên biểu đồ dùng bảng màu cho nền sáng */
+    return false;
   }
   function catColor(i){
     var pal = isDark() ? CAT_DARK : CAT_LIGHT;
