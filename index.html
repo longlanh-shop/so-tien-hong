@@ -527,32 +527,36 @@ footer.note .stk{color:#FFB9C8}
 
 
 /* ---------- lịch tháng nhỏ ---------- */
-.calbox{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.calbox{margin-top:18px;border-radius:16px;padding:13px 13px 14px;
+  background:linear-gradient(168deg,#3B1322 0%,#4E1E2E 58%,#5C2738 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
 .calhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:10px}
 .calhead h3{font-family:var(--f-body);font-size:11.5px;font-weight:600;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--rose);margin:0}
-.calhead .cs{font-size:12px;color:var(--ink-faint)}
+  text-transform:uppercase;color:#FFC9DB;margin:0}
+.calhead .cs{font-size:12px;color:#C59AAA}
 .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.cdow{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);
+.cdow{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#B3808F;
   text-align:center;padding-bottom:2px}
-.cday{position:relative;border:1px solid var(--line);border-radius:9px;background:var(--surface);
+.cday{position:relative;border:1px solid rgba(255,255,255,.10);border-radius:9px;
+  background:rgba(255,255,255,.05);
   min-height:52px;padding:4px 5px 5px;display:flex;flex-direction:column;align-items:flex-start;
-  gap:1px;cursor:pointer;font-family:inherit;color:var(--ink);text-align:left;overflow:hidden}
+  gap:1px;cursor:pointer;font-family:inherit;color:#FFE7F0;text-align:left;overflow:hidden}
 .cday.blank{border:0;background:transparent;cursor:default;min-height:0}
-.cday .cn{font-size:11px;color:var(--ink-faint);font-variant-numeric:tabular-nums;line-height:1.2}
+.cday .cn{font-size:11px;color:#BC8D9C;font-variant-numeric:tabular-nums;line-height:1.2}
 .cday .cv{font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.25;
-  color:var(--rose-deep);margin-top:auto}
-.cday .cdot{position:absolute;right:5px;top:5px;width:5px;height:5px;border-radius:50%;background:var(--rose);opacity:.5}
-.cday.none{background:transparent;border-style:dashed;opacity:.65}
+  color:#FFE7F0;margin-top:auto}
+.cday.none{background:transparent;border-style:dashed;border-color:rgba(255,255,255,.09)}
+.cday.none .cn{color:#8E6372}
 .cday.none .cv{display:none}
-.cday.lv1{background:color-mix(in srgb,var(--rose) 10%,var(--surface))}
-.cday.lv2{background:color-mix(in srgb,var(--rose) 20%,var(--surface))}
-.cday.lv3{background:color-mix(in srgb,var(--rose) 32%,var(--surface))}
-.cday.lv4{background:color-mix(in srgb,var(--rose) 46%,var(--surface));border-color:transparent}
-.cday.today{box-shadow:inset 0 0 0 2px var(--rose-deep)}
-.cday.on{box-shadow:inset 0 0 0 2px var(--ink)}
-.cday:hover{border-color:var(--rose)}
-.caldet{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);padding:8px}
+.cday.lv1{background:rgba(224,86,110,.26);border-color:transparent}
+.cday.lv2{background:rgba(226,92,116,.42);border-color:transparent}
+.cday.lv3{background:rgba(228,100,124,.60);border-color:transparent}
+.cday.lv4{background:rgba(232,112,135,.80);border-color:transparent}
+.cday.lv3 .cn,.cday.lv4 .cn{color:#FFDCE6}
+.cday.today{box-shadow:inset 0 0 0 2px #F08AA0}
+.cday.on{box-shadow:inset 0 0 0 2px #FFF4F8}
+.cday:hover{border-color:rgba(255,255,255,.34)}
+.caldet{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:8px}
 .caldet .cdh{display:flex;align-items:center;gap:8px;padding:2px 4px 8px}
 .caldet .cdh b{font-size:14px}
 .caldet .cdh span{flex:1;font-size:11.5px;color:var(--ink-faint)}
@@ -1070,7 +1074,7 @@ footer.note .stk{color:#FFB9C8}
 (function(){
   "use strict";
 
-  var BUILD = "b11 · index";
+  var BUILD = "b12 · index";
   var gate = document.getElementById("gate");
   var app = document.getElementById("app");
   var booted = false;
@@ -1320,7 +1324,7 @@ function boot(){
         return { id: x.id || uid(), name: x.name || "", note: x.note || "", amount: Number(x.amount) || 0,
                  kind: x.kind === "fixed" ? "fixed" : "extra", paid: !!x.paid, cat: x.cat || "",
                  paidAt: Number(x.paidAt) || 0, pay: payOf(x.pay),
-                 date: dateOf(x.date), gap: !!x.gap };
+                 date: dateOf(x.date), dset: !!x.dset, gap: !!x.gap };
       }) : []
     };
   }
@@ -1848,8 +1852,12 @@ function boot(){
   function dateInput(it, onChange){
     var i = document.createElement("input");
     i.type = "date"; i.className = "dmini"; i.value = it.date || "";
-    i.title = "Ngày chi";
-    i.addEventListener("change", function(){ it.date = dateOf(i.value); onChange(); });
+    i.title = "Ngày chi — tự lấy ngày bạn tích đã chi, sửa ở đây thì giữ nguyên ngày bạn chọn";
+    i.addEventListener("change", function(){
+      it.date = dateOf(i.value);
+      it.dset = !!it.date;
+      onChange();
+    });
     return i;
   }
   function tagChip(text, title){
@@ -2079,7 +2087,8 @@ function boot(){
     tick.addEventListener("click", function(){
       it.paid = !it.paid;
       it.paidAt = it.paid ? Date.now() : 0;
-      if(it.paid && !it.date) it.date = defaultDate();
+      /* ngày lên lịch là ngày tích đã chi, trừ khi tự chọn ngày khác */
+      if(it.paid && !it.dset) it.date = defaultDate();
       queueSave(); render();
       if(it.paid) flashBalance("Đã chi " + (it.name || "khoản mới") + " " + VNDc(it.amount));
       else flashBalance("Bỏ đánh dấu " + (it.name || "khoản"));
@@ -2628,7 +2637,7 @@ function boot(){
     var dim = daysInMonth(key);
     var elapsed = key === monthKey(new Date()) ? new Date().getDate() : dim;
     var nDays = {};
-    data.expenses.forEach(function(e){ if(e.date) nDays[e.date] = true; });
+    data.expenses.forEach(function(e){ if(e.paid && e.date) nDays[e.date] = true; });
 
     if(!spend && !t.totalIn){
       L.push({ t: monthLabel(key) + " chưa có số liệu nào để đánh giá.", c: "warn" });
@@ -2720,12 +2729,12 @@ function boot(){
   }
   function daySpend(){
     var m = {};
+    /* chỉ tính khoản ĐÃ CHI, vào đúng ngày tích đã chi */
     data.expenses.forEach(function(e){
-      if(!e.date) return;
-      if(!m[e.date]) m[e.date] = { total: 0, paid: 0, todo: 0, n: 0 };
+      if(!e.paid || !e.date) return;
+      if(!m[e.date]) m[e.date] = { total: 0, n: 0 };
       m[e.date].total += e.amount;
       m[e.date].n++;
-      if(e.paid) m[e.date].paid += e.amount; else m[e.date].todo += e.amount;
     });
     return m;
   }
@@ -2751,16 +2760,18 @@ function boot(){
       nDays++;
     });
 
-    var noDateSum = 0, offSum = 0;
+    var noDateSum = 0, offSum = 0, todoSum = 0;
     data.expenses.forEach(function(e){
+      if(!e.paid){ todoSum += e.amount; return; }
       if(!e.date) noDateSum += e.amount;
       else if(e.date.slice(0, 7) !== key) offSum += e.amount;
     });
     var extra = (noDateSum ? " · chưa gắn ngày " + VNDc(noDateSum) : "") +
-                (offSum ? " · ghi ngày ngoài tháng " + VNDc(offSum) : "");
+                (offSum ? " · ghi ngày ngoài tháng " + VNDc(offSum) : "") +
+                (todoSum ? " · chưa chi " + VNDc(todoSum) + " nên chưa lên lịch" : "");
     $("calSum").textContent = nDays
-      ? "Ghi trong " + nDays + " ngày · tổng " + VNDc(totalMonth) + extra
-      : ("Chưa có khoản chi nào gắn ngày trong tháng này." + extra);
+      ? "Đã chi trong " + nDays + " ngày · tổng " + VNDc(totalMonth) + extra
+      : ("Chưa có khoản nào tích đã chi trong tháng này." + extra);
 
     CDOW.forEach(function(d){
       var c = document.createElement("div");
@@ -2787,7 +2798,7 @@ function boot(){
         if(iso === todayIso) cls += " today";
         if(iso === calPick) cls += " on";
         cell.className = cls;
-        cell.title = dayLabel(iso) + (s ? " — " + VNDc(s.total) + ", " + s.n + " khoản" : " — chưa chi gì");
+        cell.title = dayLabel(iso) + (s ? " — đã chi " + VNDc(s.total) + ", " + s.n + " khoản" : " — chưa chi gì");
         var n = document.createElement("span");
         n.className = "cn"; n.textContent = d3;
         cell.appendChild(n);
@@ -2795,12 +2806,6 @@ function boot(){
           var v = document.createElement("span");
           v.className = "cv"; v.textContent = shortVND(s.total);
           cell.appendChild(v);
-          if(s.todo){
-            var dot = document.createElement("span");
-            dot.className = "cdot";
-            dot.title = "còn khoản chưa chi";
-            cell.appendChild(dot);
-          }
         }
         cell.addEventListener("click", function(){
           calPick = (calPick === iso) ? null : iso;
@@ -2811,7 +2816,7 @@ function boot(){
     }
 
     if(calPick){
-      var items = data.expenses.filter(function(e){ return e.date === calPick; })
+      var items = data.expenses.filter(function(e){ return e.paid && e.date === calPick; })
                     .sort(function(a, b){ return b.amount - a.amount; });
       var box = document.createElement("div");
       box.className = "caldet";
@@ -3060,10 +3065,10 @@ function boot(){
     }
     assessLines().forEach(function(x){ L.push("· " + x.t); });
     L.push("");
-    L.push("CHI THEO NGÀY");
-    L.push("(lịch tháng trong trang hiển thị cùng số liệu này)");
+    L.push("CHI THEO NGÀY (khoản đã chi, tính theo ngày tích đã chi)");
     var byDay = {};
     data.expenses.forEach(function(e){
+      if(!e.paid) return;
       var dk = e.date || "";
       byDay[dk] = (byDay[dk] || 0) + e.amount;
     });
@@ -3215,9 +3220,9 @@ function boot(){
 
     head("Chi theo ngày");
     var pdfDays = {};
-    data.expenses.forEach(function(e){ var dk = e.date || ""; pdfDays[dk] = (pdfDays[dk] || 0) + e.amount; });
+    data.expenses.forEach(function(e){ if(!e.paid) return; var dk = e.date || ""; pdfDays[dk] = (pdfDays[dk] || 0) + e.amount; });
     var dkeys = Object.keys(pdfDays).sort().reverse();
-    if(!dkeys.length) kv("Chưa có khoản chi nào", "");
+    if(!dkeys.length) kv("Chưa có khoản nào đã chi", "");
     else dkeys.forEach(function(dk){ kv(dayLabel(dk), VNDc(pdfDays[dk])); });
 
     head("Chi theo mục");
