@@ -525,6 +525,71 @@ footer.note .stk{color:#FFB9C8}
   width:30px;height:30px;font-size:17px;cursor:pointer;line-height:1}
 .sheetbar button:hover{background:var(--rose-wash);color:var(--rose-deep)}
 
+
+/* ---------- lịch tháng nhỏ ---------- */
+.calbox{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.calhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:10px}
+.calhead h3{font-family:var(--f-body);font-size:11.5px;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--rose);margin:0}
+.calhead .cs{font-size:12px;color:var(--ink-faint)}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cdow{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);
+  text-align:center;padding-bottom:2px}
+.cday{position:relative;border:1px solid var(--line);border-radius:9px;background:var(--surface);
+  min-height:52px;padding:4px 5px 5px;display:flex;flex-direction:column;align-items:flex-start;
+  gap:1px;cursor:pointer;font-family:inherit;color:var(--ink);text-align:left;overflow:hidden}
+.cday.blank{border:0;background:transparent;cursor:default;min-height:0}
+.cday .cn{font-size:11px;color:var(--ink-faint);font-variant-numeric:tabular-nums;line-height:1.2}
+.cday .cv{font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.25;
+  color:var(--rose-deep);margin-top:auto}
+.cday .cdot{position:absolute;right:5px;top:5px;width:5px;height:5px;border-radius:50%;background:var(--rose);opacity:.5}
+.cday.none{background:transparent;border-style:dashed;opacity:.65}
+.cday.none .cv{display:none}
+.cday.lv1{background:color-mix(in srgb,var(--rose) 10%,var(--surface))}
+.cday.lv2{background:color-mix(in srgb,var(--rose) 20%,var(--surface))}
+.cday.lv3{background:color-mix(in srgb,var(--rose) 32%,var(--surface))}
+.cday.lv4{background:color-mix(in srgb,var(--rose) 46%,var(--surface));border-color:transparent}
+.cday.today{box-shadow:inset 0 0 0 2px var(--rose-deep)}
+.cday.on{box-shadow:inset 0 0 0 2px var(--ink)}
+.cday:hover{border-color:var(--rose)}
+.caldet{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);padding:8px}
+.caldet .cdh{display:flex;align-items:center;gap:8px;padding:2px 4px 8px}
+.caldet .cdh b{font-size:14px}
+.caldet .cdh span{flex:1;font-size:11.5px;color:var(--ink-faint)}
+.caldet .rows{margin:0}
+.cdclose{border:1px solid var(--line);background:transparent;color:var(--ink-soft);
+  border-radius:999px;padding:3px 10px;font-size:11.5px;cursor:pointer;font-family:inherit}
+@media(max-width:520px){ .cday{min-height:46px;padding:3px 4px 4px} .cday .cv{font-size:10.5px} }
+@media(max-width:560px){ .toastwrap{bottom:84px} }
+
+/* ---------- thông báo còn lại sau mỗi lần chi ---------- */
+.toastwrap{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;
+  display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;
+  width:min(520px,calc(100% - 32px))}
+.toast{background:var(--surface);border:1px solid var(--line-strong);border-radius:14px;
+  box-shadow:0 10px 32px -12px rgba(30,10,16,.65);padding:9px 14px;display:flex;align-items:center;
+  gap:10px;width:100%;opacity:0;transform:translateY(10px);transition:opacity .2s ease,transform .2s ease}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast .stk{width:26px;height:26px;flex:none}
+.toast .tmsg{flex:1;min-width:0;font-size:12.5px;color:var(--ink-soft);line-height:1.4}
+.toast .tmsg b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.toast .tmsg .neg{color:var(--rose-deep)}
+
+/* ---------- xếp hạng chi tiêu ---------- */
+.grade{display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;padding:12px 14px;
+  border-radius:14px;border:1px solid var(--line-strong);background:var(--surface-2);margin-bottom:12px}
+.grade .gbadge{flex:none;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;
+  font-size:23px;font-weight:700;color:#fff;font-family:var(--f-body)}
+.grade .gtxt{flex:1 1 220px;min-width:0}
+.grade .gtitle{font-size:15px;font-weight:700;margin:0 0 2px}
+.grade .gsub{font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.45}
+.gbars{display:flex;flex-direction:column;gap:5px;margin-top:10px}
+.gbar{display:grid;grid-template-columns:104px 1fr auto;gap:9px;align-items:center;font-size:12px;
+  color:var(--ink-soft)}
+.gbar .gtrack{height:7px;border-radius:999px;background:var(--surface);overflow:hidden}
+.gbar .gtrack i{display:block;height:100%;border-radius:999px}
+.gbar .gval{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink);min-width:54px;text-align:right}
+
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -855,6 +920,14 @@ footer.note .stk{color:#FFB9C8}
         <div id="paidGroups"></div>
         <p class="empty" id="emptyPaid" hidden>Chưa có khoản nào được đánh dấu đã chi.</p>
 
+        <div class="calbox">
+          <div class="calhead">
+            <h3>Lịch chi tiêu tháng</h3>
+            <span class="cs" id="calSum"></span>
+          </div>
+          <div class="calgrid" id="calGrid"></div>
+          <div id="calDetail"></div>
+        </div>
       </div>
     </details>
 
@@ -900,6 +973,7 @@ footer.note .stk{color:#FFB9C8}
 
       <div class="trend">
         <h3 style="font-family:var(--f-body);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--rose);margin:0 0 4px">Đánh giá chi tiêu tháng này</h3>
+        <div id="gradeBox"></div>
         <div class="verdict" id="assessNow"></div>
       </div>
 
@@ -976,6 +1050,7 @@ footer.note .stk{color:#FFB9C8}
       <svg aria-hidden="true"><use href="#st-cat"></use></svg>
     </button>
   </div>
+  <div class="toastwrap" id="toastWrap" aria-live="polite"></div>
   <div class="scrim" id="scrim" hidden>
     <div class="sheet">
       <div class="sheetbar"><button type="button" id="sheetClose" aria-label="Đóng">×</button></div>
@@ -995,7 +1070,7 @@ footer.note .stk{color:#FFB9C8}
 (function(){
   "use strict";
 
-  var BUILD = "b10 · app";
+  var BUILD = "b11 · app";
   var gate = document.getElementById("gate");
   var app = document.getElementById("app");
   var booted = false;
@@ -2006,6 +2081,8 @@ function boot(){
       it.paidAt = it.paid ? Date.now() : 0;
       if(it.paid && !it.date) it.date = defaultDate();
       queueSave(); render();
+      if(it.paid) flashBalance("Đã chi " + (it.name || "khoản mới") + " " + VNDc(it.amount));
+      else flashBalance("Bỏ đánh dấu " + (it.name || "khoản"));
     });
     li.appendChild(tick);
 
@@ -2047,7 +2124,10 @@ function boot(){
     sel.addEventListener("change", function(){ it.cat = sel.value; queueSave(); render(); });
     ctl.appendChild(sel);
 
-    ctl.appendChild(amtInput(it.amount, function(v){ it.amount = v; queueSave(); paint(); }));
+    ctl.appendChild(amtInput(it.amount, function(v){
+      it.amount = v; queueSave(); paint();
+      if(it.paid) flashSoon("Đã chi " + (it.name || "khoản") + " " + VNDc(v));
+    }));
 
     if(it.gap) ctl.appendChild(tagChip("lệch", "Khoản chi không ghi, lấy từ lần đếm tiền"));
 
@@ -2272,6 +2352,7 @@ function boot(){
     $("rFund").textContent = VNDc(t.fund);
 
     drawCatReport();
+    drawGrade();
     drawAssess();
     drawTrend();
   }
@@ -2630,6 +2711,311 @@ function boot(){
     });
   }
 
+  /* ---------------- lịch chi tiêu tháng ---------------- */
+  var CDOW = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+  var calPick = null;
+
+  function isoOf(y, m, d){
+    return y + "-" + String(m).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+  }
+  function daySpend(){
+    var m = {};
+    data.expenses.forEach(function(e){
+      if(!e.date) return;
+      if(!m[e.date]) m[e.date] = { total: 0, paid: 0, todo: 0, n: 0 };
+      m[e.date].total += e.amount;
+      m[e.date].n++;
+      if(e.paid) m[e.date].paid += e.amount; else m[e.date].todo += e.amount;
+    });
+    return m;
+  }
+
+  function drawCalendar(){
+    var grid = $("calGrid"), det = $("calDetail");
+    if(!grid) return;
+    grid.textContent = ""; det.textContent = "";
+
+    var p = key.split("-");
+    var yy = parseInt(p[0], 10), mm = parseInt(p[1], 10);
+    var dim = daysInMonth(key);
+    var first = new Date(yy, mm - 1, 1).getDay();      /* 0 = chủ nhật */
+    var lead = (first + 6) % 7;                        /* cột bắt đầu từ thứ hai */
+    var spend = daySpend();
+    var todayIso = todayISO();
+
+    var max = 0, totalMonth = 0, nDays = 0;
+    Object.keys(spend).forEach(function(k2){
+      if(k2.slice(0, 7) !== key) return;
+      max = Math.max(max, spend[k2].total);
+      totalMonth += spend[k2].total;
+      nDays++;
+    });
+
+    var noDateSum = 0, offSum = 0;
+    data.expenses.forEach(function(e){
+      if(!e.date) noDateSum += e.amount;
+      else if(e.date.slice(0, 7) !== key) offSum += e.amount;
+    });
+    var extra = (noDateSum ? " · chưa gắn ngày " + VNDc(noDateSum) : "") +
+                (offSum ? " · ghi ngày ngoài tháng " + VNDc(offSum) : "");
+    $("calSum").textContent = nDays
+      ? "Ghi trong " + nDays + " ngày · tổng " + VNDc(totalMonth) + extra
+      : ("Chưa có khoản chi nào gắn ngày trong tháng này." + extra);
+
+    CDOW.forEach(function(d){
+      var c = document.createElement("div");
+      c.className = "cdow"; c.textContent = d;
+      grid.appendChild(c);
+    });
+    for(var i = 0; i < lead; i++){
+      var b = document.createElement("div");
+      b.className = "cday blank";
+      grid.appendChild(b);
+    }
+    for(var d2 = 1; d2 <= dim; d2++){
+      (function(d3){
+        var iso = isoOf(yy, mm, d3);
+        var s = spend[iso];
+        var cell = document.createElement("button");
+        cell.type = "button";
+        var cls = "cday";
+        if(!s) cls += " none";
+        else {
+          var r = max > 0 ? s.total / max : 0;
+          cls += r > .75 ? " lv4" : r > .5 ? " lv3" : r > .25 ? " lv2" : " lv1";
+        }
+        if(iso === todayIso) cls += " today";
+        if(iso === calPick) cls += " on";
+        cell.className = cls;
+        cell.title = dayLabel(iso) + (s ? " — " + VNDc(s.total) + ", " + s.n + " khoản" : " — chưa chi gì");
+        var n = document.createElement("span");
+        n.className = "cn"; n.textContent = d3;
+        cell.appendChild(n);
+        if(s){
+          var v = document.createElement("span");
+          v.className = "cv"; v.textContent = shortVND(s.total);
+          cell.appendChild(v);
+          if(s.todo){
+            var dot = document.createElement("span");
+            dot.className = "cdot";
+            dot.title = "còn khoản chưa chi";
+            cell.appendChild(dot);
+          }
+        }
+        cell.addEventListener("click", function(){
+          calPick = (calPick === iso) ? null : iso;
+          drawCalendar();
+        });
+        grid.appendChild(cell);
+      })(d2);
+    }
+
+    if(calPick){
+      var items = data.expenses.filter(function(e){ return e.date === calPick; })
+                    .sort(function(a, b){ return b.amount - a.amount; });
+      var box = document.createElement("div");
+      box.className = "caldet";
+      var hd = document.createElement("div");
+      hd.className = "cdh";
+      hd.appendChild(stkSvg("st-cat", "stk"));
+      var t1 = document.createElement("b");
+      t1.textContent = dayLabel(calPick);
+      hd.appendChild(t1);
+      var t2 = document.createElement("span");
+      var sm = items.reduce(function(a, b){ return a + b.amount; }, 0);
+      t2.textContent = items.length ? items.length + " khoản · " + VNDc(sm) : "chưa chi gì trong ngày này";
+      hd.appendChild(t2);
+      var cl = document.createElement("button");
+      cl.type = "button"; cl.className = "cdclose"; cl.textContent = "Đóng";
+      cl.addEventListener("click", function(){ calPick = null; drawCalendar(); });
+      hd.appendChild(cl);
+      box.appendChild(hd);
+      if(items.length) box.appendChild(rowsUl(items));
+      det.appendChild(box);
+    }
+  }
+
+  /* ---------------- báo còn lại sau mỗi lần chi ---------------- */
+  var toastTimer = null, flashWait = null;
+  function flashSoon(label){
+    if(flashWait) clearTimeout(flashWait);
+    flashWait = setTimeout(function(){ flashWait = null; flashBalance(label); }, 900);
+  }
+  function flashBalance(label){
+    var wrap = $("toastWrap");
+    if(!wrap) return;
+    var t = totals();
+    wrap.textContent = "";
+    var el = document.createElement("div");
+    el.className = "toast";
+    el.appendChild(stkSvg("st-cat", "stk"));
+    var msg = document.createElement("div");
+    msg.className = "tmsg";
+    function put(txt, cls){
+      var b = document.createElement("b");
+      b.textContent = txt;
+      if(cls) b.className = cls;
+      msg.appendChild(b);
+    }
+    if(label){ msg.appendChild(document.createTextNode(label + " · ")); }
+    if(t.fromActual && t.showCash){
+      msg.appendChild(document.createTextNode("Còn tiền mặt "));
+      put(VNDc(t.cash.have), t.cash.have < 0 ? "neg" : "");
+      msg.appendChild(document.createTextNode(" · chuyển khoản "));
+      put(VNDc(t.bank.have), t.bank.have < 0 ? "neg" : "");
+    } else if(t.fromActual){
+      msg.appendChild(document.createTextNode("Còn "));
+      put(VNDc(t.bank.have), t.bank.have < 0 ? "neg" : "");
+      msg.appendChild(document.createTextNode(" trong tài khoản"));
+    } else {
+      msg.appendChild(document.createTextNode("Còn lại theo sổ "));
+      put(VNDc(t.base), t.base < 0 ? "neg" : "");
+    }
+    if(t.todo){
+      msg.appendChild(document.createTextNode(" — còn " + VNDc(t.todo) + " chưa chi"));
+    }
+    el.appendChild(msg);
+    wrap.appendChild(el);
+    requestAnimationFrame(function(){ el.classList.add("show"); });
+    if(toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){
+      el.classList.remove("show");
+      setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 260);
+    }, 4200);
+  }
+
+  /* ---------------- chấm điểm chi tiêu tháng ---------------- */
+  function spendGrade(){
+    var t = totals();
+    var spend = t.paid + t.todo;
+    if(spend <= 0) return null;   /* chưa ghi khoản chi nào thì chưa chấm điểm */
+
+    var inn = t.totalIn || 0;
+    var ratio = inn > 0 ? spend / inn : (spend > 0 ? 2 : 0);
+    var saveR = inn > 0 ? t.saved / inn : 0;
+    var fix = 0, ext = 0;
+    data.expenses.forEach(function(e){ if(e.kind === "fixed") fix += e.amount; else ext += e.amount; });
+    var extR = spend > 0 ? ext / spend : 0;
+    var gapR = spend > 0 ? t.gapOut / spend : 0;
+
+    function band(v, steps){
+      for(var i = 0; i < steps.length; i++){ if(v <= steps[i][0]) return steps[i][1]; }
+      return steps[steps.length - 1][1];
+    }
+    var sSpend = band(ratio, [[.6, 40], [.7, 34], [.8, 27], [.9, 19], [1, 10], [99, 0]]);
+    var sSave  = saveR >= .2 ? 25 : saveR >= .15 ? 21 : saveR >= .1 ? 16 : saveR >= .05 ? 10 : saveR > 0 ? 5 : 0;
+    var sExt   = band(extR, [[.3, 20], [.45, 16], [.6, 11], [.75, 6], [9, 2]]);
+    var sGap   = band(gapR, [[0, 15], [.05, 12], [.1, 8], [.2, 4], [9, 0]]);
+    var score  = Math.round(sSpend + sSave + sExt + sGap);
+
+    var verdict, tone, color;
+    if(score >= 80){ verdict = "Rất hợp lý"; tone = "good"; color = "var(--sage)"; }
+    else if(score >= 65){ verdict = "Hợp lý"; tone = "good"; color = "var(--sage)"; }
+    else if(score >= 50){ verdict = "Tạm ổn"; tone = ""; color = "var(--amber)"; }
+    else if(score >= 35){ verdict = "Chưa hợp lý lắm"; tone = "warn"; color = "var(--amber)"; }
+    else { verdict = "Chưa hợp lý"; tone = "warn"; color = "var(--rose-deep)"; }
+
+    /* lời khuyên lấy từ mục yếu nhất */
+    var weak = [
+      { k: "spend", lost: 40 - sSpend,
+        tip: inn > 0 && ratio > 1
+          ? "Tháng này chi " + Math.round(ratio * 100) + "% tiền vào, tức là tiêu quá phần kiếm được."
+          : "Chi chiếm " + Math.round(ratio * 100) + "% tiền vào — giữ dưới 70% thì dư dả hơn." },
+      { k: "save", lost: 25 - sSave,
+        tip: t.saved > 0
+          ? "Mới cất được " + Math.round(saveR * 100) + "% tiền vào — cất tầm 20% ngay đầu tháng sẽ chắc tay hơn."
+          : "Tháng này chưa cất đồng nào — cất trước một khoản rồi mới tiêu phần còn lại." },
+      { k: "ext", lost: 20 - sExt,
+        tip: "Phát sinh chiếm " + Math.round(extR * 100) + "% tổng chi — phần tiêu ngoài kế hoạch đang lớn." },
+      { k: "gap", lost: 15 - sGap,
+        tip: "Có " + VNDc(t.gapOut) + " chi không ghi sổ — ghi ngay lúc chi để số liệu sát thật." }
+    ].sort(function(a, b){ return b.lost - a.lost; });
+
+    var why = [];
+    if(sSpend >= 34) why.push("chi gọn so với tiền vào");
+    if(sSave >= 21) why.push("cất đi đều");
+    if(sExt >= 16) why.push("ít phát sinh");
+    if(sGap >= 12) why.push("ghi chép đầy đủ");
+
+    var note;
+    if(weak[0].lost >= 6) note = weak[0].tip;
+    else if(why.length) note = "Điểm mạnh: " + why.join(", ") + ".";
+    else note = "Số liệu tháng này nhìn chung ổn định.";
+
+    var partial = key === monthKey(new Date()) && new Date().getDate() < daysInMonth(key);
+    return {
+      score: score, verdict: verdict, tone: tone, color: color, note: note, partial: partial,
+      bars: [
+        { label: "Chi / tiền vào", pct: sSpend / 40 * 100,
+          val: inn > 0 ? Math.round(ratio * 100) + "%" : "—" },
+        { label: "Phần cất đi", pct: sSave / 25 * 100,
+          val: inn > 0 ? Math.round(saveR * 100) + "%" : "—" },
+        { label: "Chi phát sinh", pct: sExt / 20 * 100,
+          val: spend > 0 ? Math.round(extR * 100) + "%" : "—" },
+        { label: "Ghi chép", pct: sGap / 15 * 100,
+          val: t.gapOut ? "lệch " + shortVND(t.gapOut) : "đủ" }
+      ]
+    };
+  }
+
+  function drawGrade(){
+    var box = $("gradeBox");
+    if(!box) return;
+    box.textContent = "";
+    var g = spendGrade();
+    if(!g){
+      var e = document.createElement("p");
+      e.className = "empty";
+      e.textContent = "Chưa ghi khoản chi nào trong " + monthLabel(key) + " nên chưa đánh giá được.";
+      box.appendChild(e);
+      return;
+    }
+
+    var wrap = document.createElement("div");
+    wrap.className = "grade";
+    var bd = document.createElement("div");
+    bd.className = "gbadge";
+    bd.style.background = g.color;
+    bd.textContent = g.score;
+    wrap.appendChild(bd);
+
+    var tx = document.createElement("div");
+    tx.className = "gtxt";
+    var h4 = document.createElement("p");
+    h4.className = "gtitle";
+    h4.textContent = "Chi tiêu tháng này: " + g.verdict + (g.partial ? " (mới nửa chừng)" : "");
+    tx.appendChild(h4);
+    var sb = document.createElement("p");
+    sb.className = "gsub";
+    sb.textContent = g.note;
+    tx.appendChild(sb);
+    wrap.appendChild(tx);
+    box.appendChild(wrap);
+
+    var bars = document.createElement("div");
+    bars.className = "gbars";
+    g.bars.forEach(function(b){
+      var row = document.createElement("div");
+      row.className = "gbar";
+      var l = document.createElement("span");
+      l.textContent = b.label;
+      row.appendChild(l);
+      var tr = document.createElement("div");
+      tr.className = "gtrack";
+      var i = document.createElement("i");
+      i.style.width = Math.max(2, Math.min(100, b.pct)) + "%";
+      i.style.background = b.pct >= 75 ? "var(--sage)" : b.pct >= 45 ? "var(--amber)" : "var(--rose-deep)";
+      tr.appendChild(i);
+      row.appendChild(tr);
+      var v = document.createElement("span");
+      v.className = "gval";
+      v.textContent = b.val;
+      row.appendChild(v);
+      bars.appendChild(row);
+    });
+    box.appendChild(bars);
+  }
+
   function toggleLegend(name){
     openLegend[name] = !openLegend[name];
     drawCatReport();
@@ -2666,9 +3052,16 @@ function boot(){
     L.push("= Tổng tiền ra: " + VNDc(t.saved + t.paid + t.todo));
     L.push("");
     L.push("ĐÁNH GIÁ CHI TIÊU THÁNG NÀY");
+    var gr = spendGrade();
+    if(gr){
+      L.push("Xếp hạng: " + gr.verdict + " — " + gr.score + "/100" + (gr.partial ? " (tháng chưa hết)" : ""));
+      L.push(gr.note);
+      gr.bars.forEach(function(b){ L.push("   - " + b.label + ": " + b.val); });
+    }
     assessLines().forEach(function(x){ L.push("· " + x.t); });
     L.push("");
     L.push("CHI THEO NGÀY");
+    L.push("(lịch tháng trong trang hiển thị cùng số liệu này)");
     var byDay = {};
     data.expenses.forEach(function(e){
       var dk = e.date || "";
@@ -2795,6 +3188,18 @@ function boot(){
     kv("Tổng tiền ra", VNDc(t.saved + t.paid + t.todo), true);
 
     head("Đánh giá chi tiêu tháng này");
+    var pdfG = spendGrade();
+    if(pdfG){
+      kv("Xếp hạng: " + pdfG.verdict + (pdfG.partial ? " (tháng chưa hết)" : ""), pdfG.score + "/100", true);
+      body(false);
+      doc.setFontSize(10); doc.setTextColor.apply(doc, SOFT);
+      doc.splitTextToSize(pdfSafe(pdfG.note), W - 2 * M - 12).forEach(function(ln){
+        need(16); txt(ln, M + 6, y); y += 14;
+      });
+      y += 4;
+      pdfG.bars.forEach(function(b){ kv("   " + b.label, b.val); });
+      y += 4;
+    }
     assessLines().forEach(function(x){
       body(false);
       doc.setFontSize(10);
@@ -2959,6 +3364,7 @@ function boot(){
     var todoRows = listPaidState(false), paidRows = listPaidState(true);
     renderList($("listTodo"), $("emptyTodo"), todoRows, expenseRow);
     renderPaidGroups(paidRows);
+    drawCalendar();
     $("emptyPaid").hidden = paidRows.length > 0;
     $("vCat").classList.toggle("on", paidView === "cat");
     $("vDay").classList.toggle("on", paidView === "day");
@@ -3027,7 +3433,7 @@ function boot(){
   function loadMonth(k){
     if(saveTimer){ clearTimeout(saveTimer); saveTimer = null; }
     key = k;
-    openTile = null; openDays = {};
+    openTile = null; openDays = {}; calPick = null;
     if($("gapBar")){ $("gapBar").hidden = true; gapPending = 0; }
     $("mtext").textContent = monthLabel(k);
     $("mpick").value = k;
@@ -3138,6 +3544,7 @@ function boot(){
     }
     queueSave(); render();
     setStatus("Đã ghi khoản chênh lệch " + VNDc(Math.abs(d)));
+    flashBalance("Ghi chênh lệch " + VNDc(Math.abs(d)));
   }
   $("gapOkBank").addEventListener("click", function(){ writeGap("bank"); });
   $("gapOkCash").addEventListener("click", function(){ writeGap("cash"); });
